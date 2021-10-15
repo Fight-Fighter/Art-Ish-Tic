@@ -9,11 +9,15 @@ public class Coins : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        SoundManager.Instance.PlayOneShot(SoundManager.Instance.getCoin);
+		if (col.gameObject.name == "MC")
+		{
 
-        increaseTextUIScore();
+			SoundManager.Instance.PlayOneShot(SoundManager.Instance.getCoin);
 
-        Destroy(gameObject);
+			increaseTextUIScore();
+
+			Destroy(gameObject);
+		}
     }
 
 	void increaseTextUIScore()
