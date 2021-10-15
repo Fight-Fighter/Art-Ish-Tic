@@ -16,7 +16,6 @@ public class Snail : MonoBehaviour
 	private Vector2 direction = Vector2.right;
 
 	private bool isJumping = false;
-	private bool shouldApproachEdge = false;
 	private bool isJumpingOverGap = false;
 	private float timeToStop = 0f;
 	private float jumpingTimeElapsed = 0f;
@@ -37,8 +36,7 @@ public class Snail : MonoBehaviour
 		lastJump += Time.deltaTime;
 		// Move the snail
 		bool onGround = IsOnGround();
-		if (onGround && !shouldApproachEdge) { timeToStop = 0; }
-		if (onGround || jumpingTimeElapsed > maxJumpTime) { isJumping = false; isJumpingOverGap = false; jumpingTimeElapsed = 0; }
+		if (onGround || jumpingTimeElapsed > maxJumpTime) { isJumping = false; isJumpingOverGap = false; timeToStop = 0; jumpingTimeElapsed = 0; }
 		else { jumpingTimeElapsed += Time.deltaTime; }
 
 		if (jumpingTimeElapsed <= timeToStop || !isJumpingOverGap) { rb.velocity = new Vector2(direction.x * speed, rb.velocity.y); }
@@ -48,26 +46,21 @@ public class Snail : MonoBehaviour
 		if (onGround) { FollowPlayer(); }
 
 		bool groundAhead = IsGroundAhead();
-		if (!isJumping && !shouldApproachEdge && !groundAhead) {
+		if (!isJumping && !groundAhead) {
 			timeToStop = CanJumpOverGap();
 			if (timeToStop > 0)
 			{
-				shouldApproachEdge = true;
+				isJumpingOverGap = true;
+				SnailJump(true);
 			} else {
 				Debug.Log("Flipping because no ground ahead");
 				FlipSnail();
 			}
 		} 
-		if (shouldApproachEdge && !IsGroundAheadOfCenter())
-        {
-			shouldApproachEdge = false;
-			isJumpingOverGap = true;
-			SnailJump(true);
-		}
 
-		if (!isJumpingOverGap && !groundAhead && !shouldApproachEdge && IsAbyssAhead()) { FlipSnail(); Debug.Log("Flipping because abyss ahead"); }
+		if (!isJumpingOverGap && !groundAhead && IsAbyssAhead()) { FlipSnail(); Debug.Log("Flipping because abyss ahead"); }
 
-		if (onGround && !isJumping && !shouldApproachEdge) { SnailJump(false); }
+		if (onGround && !isJumping) { SnailJump(false); }
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
@@ -191,11 +184,6 @@ public class Snail : MonoBehaviour
 			return !Physics2D.Raycast(new Vector2(collider2d.bounds.min.x + rb.velocity.x * groundCheckAheadTime, collider2d.bounds.min.y - 0.01f), -Vector2.up, 10);
 		}
 	}
-	public bool IsGroundAheadOfCenter()
-	{
-		return Physics2D.Raycast(new Vector2(collider2d.bounds.center.x + rb.velocity.x * groundCheckAheadTime, collider2d.bounds.min.y - 0.01f), -Vector2.up, groundRayCastLength);
-	}
-
 	public float CanJumpOverGapWithRayCast()
     {
 		float timeStep = -1 * jumpSpeed / Physics2D.gravity.y / 2;
