@@ -49,7 +49,12 @@ public class Snail : MonoBehaviour
 
 		bool groundAhead = IsGroundAhead();
 		if (!isJumping && !shouldApproachEdge && !groundAhead) {
-			timeToStop = CanJumpOverGap();
+
+			RaycastHit2D rch = Physics2D.Raycast(new Vector2(collider2d.bounds.center.x + direction.x * collider2d.bounds.extents.x, collider2d.bounds.min.y - 0.02f), -direction.x * Vector2.right, collider2d.bounds.size.x);
+			float extraDist = collider2d.bounds.extents.x;
+			if ((bool) rch == false) { Debug.Log("Fatal Error, this shouldn't happen EVER"); }
+			extraDist -= rch.distance;
+			timeToStop = CanJumpOverGap(extraDist);
 			if (timeToStop > 0)
 			{
 				shouldApproachEdge = true;
@@ -228,7 +233,7 @@ public class Snail : MonoBehaviour
 		return lastLandingTime;
     }
 
-	public float CanJumpOverGap()
+	public float CanJumpOverGap(float extraDistanceX)
 	{
 		float timeStep = -1 * jumpSpeed / Physics2D.gravity.y / 2;
 		float maxPositions = 5;
@@ -236,7 +241,7 @@ public class Snail : MonoBehaviour
 		float maxLanding = 20f;
         //check collisions for the top of the collider instead of the center, since it is a jump
         //Vector2 topPos = new Vector2(transform.position.x, collider2d.bounds.max.y);
-        Vector2 currPos = collider2d.bounds.center + new Vector3(collider2d.bounds.extents.x, 0, 0);
+        Vector2 currPos = collider2d.bounds.center + new Vector3(direction.x * extraDistanceX, 0, 0);
 		Vector2 topRight = currPos + new Vector2(collider2d.bounds.extents.x, collider2d.bounds.extents.y);
         Vector2 topLeft = currPos + new Vector2(-collider2d.bounds.extents.x, collider2d.bounds.extents.y);
 		Vector2 bottomRight = currPos + new Vector2(collider2d.bounds.extents.x, -collider2d.bounds.extents.y);
