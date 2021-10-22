@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,19 +47,19 @@ public class Snail : MonoBehaviour
 		if (onGround) { FollowPlayer(); }
 
 		bool groundAhead = IsGroundAhead();
-		if (!isJumping && !shouldApproachEdge && !groundAhead) {
+		if (onGround && !isJumping && !shouldApproachEdge && !groundAhead) {
 
 			RaycastHit2D rch = Physics2D.Raycast(new Vector2(collider2d.bounds.center.x + direction.x * collider2d.bounds.extents.x, collider2d.bounds.min.y - 0.02f), -direction.x * Vector2.right, collider2d.bounds.size.x);
 			float extraDist = collider2d.bounds.extents.x;
-			if ((bool) rch == false) { Debug.Log("Fatal Error, this shouldn't happen EVER"); }
+			if ((bool) rch == false) { Debug.LogError("Fatal Error, this shouldn't happen EVER", this); }
 			extraDist -= rch.distance;
 			timeToStop = CanJumpOverGap(extraDist);
 			if (timeToStop > 0)
 			{
 				shouldApproachEdge = true;
 			} else {
-				Debug.Log("Flipping because no ground ahead");
-				FlipSnail();
+				Debug.Log("Flipping because no ground ahead", this);
+				Flip();
 			}
 		} 
 		if (shouldApproachEdge && !IsGroundAheadOfCenter())
@@ -70,7 +69,7 @@ public class Snail : MonoBehaviour
 			SnailJump(true);
 		}
 
-		if (!isJumpingOverGap && !groundAhead && !shouldApproachEdge && IsAbyssAhead()) { FlipSnail(); Debug.Log("Flipping because abyss ahead"); }
+		if (!isJumpingOverGap && !groundAhead && !shouldApproachEdge && IsAbyssAhead()) { Flip(); Debug.Log("Flipping because abyss ahead", this); }
 
 		if (onGround && !isJumping && !shouldApproachEdge) { SnailJump(false); }
 	}
@@ -79,11 +78,11 @@ public class Snail : MonoBehaviour
 	{
 
 		// If you hit SnailStart & SnailEnd flip direction
-		FlipSnail();
+		Flip();
 
 	}
 
-	void FlipSnail()
+	void Flip()
 	{
 		lastTurn = 0f;
 		transform.localScale = new Vector2(-1 * transform.localScale.x,
@@ -104,12 +103,12 @@ public class Snail : MonoBehaviour
 	{
 
 		if (lastTurn < 1f) { return; }
-		Debug.Log("Following player");
+		//Debug.Log("Following player");
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 		if (players == null || players.Length == 0) { return; }
 		GameObject player = players[0];
-		if (player.transform.position.x <= transform.position.x && direction.x > 0) { FlipSnail(); }
-		else if (player.transform.position.x >= transform.position.x && direction.x < 0) { FlipSnail(); }
+		if (player.transform.position.x <= transform.position.x && direction.x > 0) { Flip(); }
+		else if (player.transform.position.x >= transform.position.x && direction.x < 0) { Flip(); }
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
@@ -117,31 +116,29 @@ public class Snail : MonoBehaviour
 		if (col.contactCount > 1) { Debug.DrawLine(col.contacts[0].point, col.contacts[1].point, Color.red, 1f); }
         if(col.gameObject.name == "MC")
         {
-			Debug.Log(col.contacts[0].point);
-			Debug.Log(col.contacts[1].point);
-			if (col.contacts[0].point.y >= collider2d.bounds.max.y)
+			if (col.contacts[0].point.y >= collider2d.bounds.max.y && (col.contactCount == 1 || col.contacts[1].point.y >= collider2d.bounds.max.y))
             {
 				dead = true;
                 GetComponent<Animator>().SetTrigger("Dead");
                 GetComponent<Collider2D>().enabled = false; //Removes collider so snall can fall off screen
                 direction = new Vector2(direction.x, -1);
-                DestroyObject(gameObject, 3);
+                Destroy(gameObject, 3);
                 increaseTextUIScore();
             } else
             {
                 SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
-                DestroyObject(col.gameObject, .5f);
+				Destroy(col.gameObject, .5f);
             }
         }
 		else if (col.contacts[0].point.x <= collider2d.bounds.min.x && direction == Vector2.left && (col.contactCount == 1 || col.contacts[1].point.x <= collider2d.bounds.min.x))
 		{
-			Debug.Log("Collided on the left");
-			FlipSnail();
+			Debug.Log("Collided on the left", this);
+			Flip();
 		}
 		else if (col.contacts[0].point.x >= collider2d.bounds.max.x && direction == Vector2.right && (col.contactCount == 1 || col.contacts[1].point.x >= collider2d.bounds.max.x))
 		{
-			Debug.Log("Collided on the right");
-			FlipSnail();
+			Debug.Log("Collided on the right", this);
+			Flip();
 		}
 	}
 
@@ -200,39 +197,7 @@ public class Snail : MonoBehaviour
 	{
 		return Physics2D.Raycast(new Vector2(collider2d.bounds.center.x + rb.velocity.x * groundCheckAheadTime, collider2d.bounds.min.y - 0.01f), -Vector2.up, groundRayCastLength);
 	}
-
-	public float CanJumpOverGapWithRayCast()
-    {
-		float timeStep = -1 * jumpSpeed / Physics2D.gravity.y / 2;
-		float maxPositions = 5;
-		float maxTime = timeStep * maxPositions;
-        float maxLanding = 20f;
-		//check collisions for the top of the collider instead of the center, since it is a jump
-        Vector2 topPos = new Vector2(transform.position.x, collider2d.bounds.max.y);
-		//Vector2 currPos = new Vector2(transform.position.x, transform.position.y);
-		Vector2 currVelocity = new Vector2(direction.x * speed, jumpSpeed);
-		float lastLandingTime = 0;
-		for (float currtime = 0; currtime < maxTime; currtime += timeStep) {
-			Vector2 finalVelocity = currVelocity + timeStep * Physics2D.gravity;
-			Vector2 distanceTraveled = currVelocity * timeStep + timeStep * timeStep * Physics2D.gravity / 2;
-            RaycastHit2D rch = Physics2D.Raycast(topPos, distanceTraveled, Convert.ToSingle(Math.Sqrt(distanceTraveled.magnitude)));
-			Debug.DrawLine(topPos, topPos + distanceTraveled, Color.white, 1f);
-			if (rch.collider != null && rch.collider != collider2d)
-            {
-				if (distanceTraveled.y > 0) { return 0; }
-            }
-			topPos = distanceTraveled + topPos;
-            currVelocity = finalVelocity;
-			//technically landing should check from the bottom instead of the top but I got lazy
-            Debug.DrawLine(topPos, topPos + maxLanding * -Vector2.up, Color.red, 1f);
-			bool isLanding = Physics2D.Raycast(topPos, -Vector2.up, maxLanding);
-
-            if (isLanding) { lastLandingTime = currtime + timeStep; }
-
-		}
-		return lastLandingTime;
-    }
-
+	
 	public float CanJumpOverGap(float extraDistanceX)
 	{
 		float timeStep = -1 * jumpSpeed / Physics2D.gravity.y / 2;
@@ -253,7 +218,7 @@ public class Snail : MonoBehaviour
 		{
 			Vector2 finalVelocity = currVelocity + timeStep * Physics2D.gravity;
 			Vector2 distanceTraveled = currVelocity * timeStep + timeStep * timeStep * Physics2D.gravity / 2;
-			RaycastHit2D rch = Physics2D.BoxCast(currPos+new Vector2(0.01f, 0.01f), collider2d.bounds.extents, 0, distanceTraveled, Convert.ToSingle(Math.Sqrt(distanceTraveled.magnitude)));
+			RaycastHit2D rch = Physics2D.BoxCast(currPos+new Vector2(0.01f, 0.01f), collider2d.bounds.extents, 0, distanceTraveled, Mathf.Sqrt(distanceTraveled.magnitude));
 			Debug.DrawLine(currPos, currPos + distanceTraveled, Color.white, 1f);
 			Debug.DrawLine(topLeft, topLeft + distanceTraveled, Color.white, 1f);
 			Debug.DrawLine(topRight, topRight + distanceTraveled, Color.white, 1f);
@@ -261,7 +226,7 @@ public class Snail : MonoBehaviour
 			Debug.DrawLine(bottomRight, bottomRight + distanceTraveled, Color.white, 1f);
 			if (rch.collider != null && rch.collider != collider2d)
 			{
-				Debug.Log(rch.collider);
+				Debug.Log(rch.collider, this);
 				if (distanceTraveled.y > 0) { return 0; }
 			}
 			currPos = distanceTraveled + currPos;
