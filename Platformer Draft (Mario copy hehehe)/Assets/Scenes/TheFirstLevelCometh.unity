@@ -810,6 +810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   aggroRange: 5
+  patrolRange: 2
 --- !u!1001 &265587149
 PrefabInstance:
   m_ObjectHideFlags: 0
