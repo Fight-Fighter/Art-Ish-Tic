@@ -83,7 +83,6 @@ public class Bee : MonoBehaviour
             if (col.contacts[0].point.y >= collider2d.bounds.max.y && (col.contactCount == 1 || col.contacts[1].point.y >= collider2d.bounds.max.y))
             {
                 dead = true;
-                GetComponent<Animator>().SetTrigger("Dead");
                 GetComponent<Collider2D>().enabled = false; //Removes collider so snall can fall off screen
                 Destroy(gameObject, 3);
                 increaseTextUIScore();
