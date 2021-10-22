@@ -6,6 +6,7 @@ public class BrickBlock : MonoBehaviour
 {
 
     private SpriteRenderer sr;  //Represents this object
+    private Collider2D collider2d;
 
     public Sprite explodedBlock;
 
@@ -14,6 +15,7 @@ public class BrickBlock : MonoBehaviour
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        collider2d = GetComponent<Collider2D>();
     }
 
     void OnCollisionEnter2D(Collision2D col)

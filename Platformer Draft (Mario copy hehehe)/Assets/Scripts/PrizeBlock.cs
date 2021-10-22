@@ -11,6 +11,13 @@ public class PrizeBlock : MonoBehaviour
 
 	public int coinsInBlock = 5;
 
+	private Collider2D collider2d;
+
+	void Awake()
+	{
+		collider2d = GetComponent<Collider2D>();
+	}
+
 	void OnCollisionEnter2D(Collision2D col)
 	{
 
