@@ -15,7 +15,7 @@ public class PrizeBlock : MonoBehaviour
 	{
 
 		// Check if the collision hit the bottom of the block
-		if (col.contacts[0].point.y < transform.position.y)
+		if (col.gameObject.name == "MC" && col.contacts[0].point.y <= collider2d.bounds.min.y && (col.contactCount == 1 || col.contacts[1].point.y <= collider2d.bounds.min.y))
 		{
 
 			// Calls RunAnimation which will be paused 

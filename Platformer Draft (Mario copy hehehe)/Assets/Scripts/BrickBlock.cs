@@ -18,12 +18,12 @@ public class BrickBlock : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.contacts[0].point.y < transform.position.y)
+        if(col.contacts[0].point.y <= collider2d.bounds.min.y && (col.contactCount == 1 || col.contacts[1].point.y <= collider2d.bounds.min.y))
         {
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
 
             sr.sprite = explodedBlock;
-            DestroyObject(gameObject, spriteChange);
+            Destroy(gameObject, spriteChange);
         }
     }
 }
