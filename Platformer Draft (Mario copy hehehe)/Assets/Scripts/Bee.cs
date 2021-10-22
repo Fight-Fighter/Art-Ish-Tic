@@ -8,6 +8,7 @@ public class Bee : MonoBehaviour
     // Start is called before the first frame update
     public float speed = 2f;
     public float aggroRange = 5f;
+    public float patrolRange = 2f; //time before flip while patrolling
 
     private Collider2D collider2d;
     private Rigidbody2D rb;
@@ -15,8 +16,9 @@ public class Bee : MonoBehaviour
     private Vector2 direction = Vector2.left;
     private bool dead = false;
     private float lastFlip = 0f;
+    private float lastPatrolFlip = 0f;
     private float collisionFollowCooldown = 0f;
-
+    
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,11 +34,10 @@ public class Bee : MonoBehaviour
         if (player == null)
         {
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-            if (players == null || players.Length == 0) { return; }
-            player = players[0];
+            if (players != null && players.Length > 0) { player = players[0]; }
+            
         }
-        
-        if (player != null && collisionFollowCooldown < 0f && (player.transform.position - transform.position).magnitude < aggroRange)
+        if (player != null && player.transform != null && collisionFollowCooldown < 0f && (player.transform.position - transform.position).magnitude < aggroRange)
         {
             Vector2 newVelocity = (player.transform.position - transform.position).normalized * speed;
             Vector2 newDirection = (new Vector2(rb.velocity.x, 0)).normalized;
@@ -45,9 +46,13 @@ public class Bee : MonoBehaviour
                 rb.velocity = newVelocity;
                 direction = newDirection;
             }
+            lastPatrolFlip = 0;
         } else
         {
-            if (rb.velocity.x == 0) { rb.velocity = new Vector2(1, 0); }
+            lastPatrolFlip += Time.deltaTime;
+            if (lastPatrolFlip > patrolRange) {
+                Flip(false);
+            }
             rb.velocity = direction * speed;
         }
 
@@ -62,6 +67,7 @@ public class Bee : MonoBehaviour
     {
         if (lastFlip < 1f && !cooldownOverride) { return false; }
         lastFlip = 0f;
+        lastPatrolFlip = 0f;
         transform.localScale = new Vector2(-1 * transform.localScale.x,
             transform.localScale.y);
         direction = new Vector2(direction.x * -1, direction.y);
