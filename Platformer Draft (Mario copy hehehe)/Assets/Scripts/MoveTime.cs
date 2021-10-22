@@ -22,75 +22,118 @@ public class MoveTime : MonoBehaviour
     private float width;
     private float height;
 
+
     private float jumpButtonPressTime;
 
     private float maxJumpTime = 0.2f;
 
     public float wallJumpY = 10f;
 
+    public Camera mainCamera;
+    public LineRenderer lineRend;
+    public DistanceJoint2D dist;
+    public bool isGrappling;
 
 
     void FixedUpdate()
     {
-        float horMove = Input.GetAxisRaw("Horizontal");
-        Vector2 vect = rb.velocity;
-        rb.velocity = new Vector2(horMove * speed, vect.y);
+        checkGrapple();
 
-        if(WallSide() && !IsOnGround() && horMove == 1)
+        /*if(WallSide() && !IsOnGround() && horMove == 1)
         {
             rb.velocity = new Vector2(-GetWallDirection() * speed * -.75f, wallJumpY);
-        }
+        }*/
 
-        animator.SetFloat("Speed", Mathf.Abs(horMove));
 
-        if(horMove > 0 && !facingRight) {
-            FlipMC();
-            }
-        
-        else if (horMove < 0 && facingRight)
+        if (!isGrappling)
         {
-            FlipMC();
-        }
 
-        float vertMove = Input.GetAxis("Jump"); //Refers to the control menu
+            float horMove = Input.GetAxisRaw("Horizontal");
+            Vector2 vect = rb.velocity;
+            rb.velocity = new Vector2(horMove * speed, vect.y);
+            animator.SetFloat("Speed", Mathf.Abs(horMove));
 
-        if(IsOnGround() && isJumping == false)
-        {
-            if (vertMove > 0f)
+            if (horMove > 0 && !facingRight)
             {
-                isJumping = true;
-                SoundManager.Instance.PlayOneShot(SoundManager.Instance.jump);
+                FlipMC();
             }
-        }
 
-        if(jumpButtonPressTime > maxJumpTime) //If I hold down the jump button, I keep hopping
-        {
-            vertMove = 0f;  
-        }
+            else if (horMove < 0 && facingRight)
+            {
+                FlipMC();
+            }
 
-        if (isJumping && (jumpButtonPressTime < maxJumpTime))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed); //It keeps the x vector the same but the y vector changes in regards to speed
-        }
+            float vertMove = Input.GetAxis("Jump"); //Refers to the control menu
 
-        if(vertMove >= 1f)
-        {
-            jumpButtonPressTime += Time.deltaTime;
-        }
+            if (IsOnGround() && isJumping == false)
+            {
+                if (vertMove > 0f)
+                {
+                    isJumping = true;
+                    SoundManager.Instance.PlayOneShot(SoundManager.Instance.jump);
+                }
+            }
 
-        else
-        {
-            isJumping = false;
-            jumpButtonPressTime = 0;
+            if (jumpButtonPressTime > maxJumpTime) //If I hold down the jump button, I keep hopping
+            {
+                vertMove = 0f;
+            }
+
+            if (isJumping && (jumpButtonPressTime < maxJumpTime))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpSpeed); //It keeps the x vector the same but the y vector changes in regards to speed
+            }
+
+            if (vertMove >= 1f)
+            {
+                jumpButtonPressTime += Time.deltaTime;
+            }
+
+            else
+            {
+                isJumping = false;
+                jumpButtonPressTime = 0;
+            }
         }
     }
         
+    void checkGrapple()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Vector2 mousePos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            lineRend.SetPosition(0, mousePos);
+            lineRend.SetPosition(1, transform.position);
+            dist.connectedAnchor = mousePos;
+            dist.enabled = true;
+            lineRend.enabled = true;
+            isGrappling = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            dist.enabled = false;
+            
+            isGrappling = false;
+        }
+        if (dist.enabled)
+        {
+            lineRend.SetPosition(1, transform.position);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        dist.enabled = false;
+        isGrappling = false;
+    }
 
     void Awake() //This appears to be the closest thing to an initializer
     {
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        dist.enabled = false;
+        isGrappling = false;
 
         width = GetComponent<Collider2D>().bounds.extents.x + 0.1f;
         height = GetComponent<Collider2D>().bounds.extents.y + 0.2f; //Gets dimensions of hitbox
@@ -111,15 +154,15 @@ public class MoveTime : MonoBehaviour
         bool groundCheck1 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - height),
             -Vector2.up, rayCastLength);
 
-        //Checks if you hit a wall to your right when jumping
+        /*//Checks if you hit a wall to your right when jumping
         bool groundCheck2 = Physics2D.Raycast(new Vector2(transform.position.x + (width - 0.2f), transform.position.y - height),
             -Vector2.up, rayCastLength);
 
         //Checks if you hit a wall to your left when jumping
         bool groundCheck3 = Physics2D.Raycast(new Vector2(transform.position.x - (width - 0.2f), transform.position.y - height),
-            -Vector2.up, rayCastLength);
+            -Vector2.up, rayCastLength);*/
 
-        if (groundCheck1 || groundCheck2 || groundCheck3)
+        if (groundCheck1)
         {
             return true;
         }
@@ -130,10 +173,12 @@ public class MoveTime : MonoBehaviour
     void OnBecameInvisible()  //Seems to be a specific method name, can't change it
     {
         Debug.Log("MC died lololol");
+        Debug.Log(rb.position.x);
+        Debug.Log(rb.position.y);
         Destroy(gameObject);
     }
 
-    public bool IsWallOnLeft()
+    /*public bool IsWallOnLeft()
     {
         return Physics2D.Raycast(new Vector2(transform.position.x - width, transform.position.y), 
             -Vector2.right, rayCastLength);
@@ -155,9 +200,9 @@ public class MoveTime : MonoBehaviour
         {
             return false;
         }
-    }
+    }*/
 
-    public int GetWallDirection()
+    /*public int GetWallDirection()
     {
         if(IsWallOnLeft())
         {
@@ -169,6 +214,6 @@ public class MoveTime : MonoBehaviour
         {
             return 0;
         }
-    }
+    }*/
 
 }
