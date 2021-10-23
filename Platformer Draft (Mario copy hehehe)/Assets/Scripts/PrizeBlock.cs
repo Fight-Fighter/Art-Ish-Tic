@@ -28,22 +28,21 @@ public class PrizeBlock : MonoBehaviour
 			// Calls RunAnimation which will be paused 
 			// and resumed over time
 			StartCoroutine(RunAnimation());
+			if (coinsInBlock > 0)
+			{
+
+				// Play coin sound
+				SoundManager.Instance.PlayOneShot(SoundManager.Instance.getCoin);
+
+				// Increase the Score Text component
+				increaseTextUIScore();
+
+				coinsInBlock--;
+
+			}
 		}
 
 		// If block contains coins
-		if (coinsInBlock > 0)
-		{
-
-			// Play coin sound
-			SoundManager.Instance.PlayOneShot(SoundManager.Instance.getCoin);
-
-			// Increase the Score Text component
-			increaseTextUIScore();
-
-			coinsInBlock--;
-
-		}
-
 	}
 
 	IEnumerator RunAnimation()

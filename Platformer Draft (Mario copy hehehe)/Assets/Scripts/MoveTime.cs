@@ -33,11 +33,16 @@ public class MoveTime : MonoBehaviour
     public LineRenderer lineRend;
     public DistanceJoint2D dist;
     public bool isGrappling;
+    private float grappleTime = 0;
 
+    void Update()
+    {
+        checkGrapple();
+    }
 
     void FixedUpdate()
     {
-        checkGrapple();
+        
 
         /*if(WallSide() && !IsOnGround() && horMove == 1)
         {
@@ -99,7 +104,7 @@ public class MoveTime : MonoBehaviour
         
     void checkGrapple()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && grappleTime == 0)
         {
             Vector2 mousePos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
             lineRend.SetPosition(0, mousePos);
@@ -108,11 +113,12 @@ public class MoveTime : MonoBehaviour
             dist.enabled = true;
             lineRend.enabled = true;
             isGrappling = true;
+            grappleTime += Time.deltaTime;
         }
         else if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             dist.enabled = false;
-            
+            grappleTime = 0;
             isGrappling = false;
         }
         if (dist.enabled)
