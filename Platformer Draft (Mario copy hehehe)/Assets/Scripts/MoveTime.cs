@@ -112,6 +112,7 @@ public class MoveTime : MonoBehaviour
             Vector2 mousePos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
             lineRend.SetPosition(0, mousePos);
             lineRend.SetPosition(1, transform.position);
+            Debug.Log(transform.position);
             dist.connectedAnchor = mousePos;
             dist.enabled = true;
             lineRend.enabled = true;
@@ -196,8 +197,6 @@ public class MoveTime : MonoBehaviour
     void OnBecameInvisible()  //Seems to be a specific method name, can't change it
     {
         Debug.Log("MC died lololol");
-        Debug.Log(rb.position.x);
-        Debug.Log(rb.position.y);
         Destroy(gameObject);
     }
 
