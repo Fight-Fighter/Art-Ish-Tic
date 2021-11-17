@@ -1,7 +1,19 @@
 fileFormatVersion: 2
 guid: 7f3055c78228a7d44bb28f21a799fab4
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -1351490699008615319
+    second: purple_bee
+  - first:
+      213: -5604170771586344425
+    second: blue_bee
+  - first:
+      213: -5996899921802292247
+    second: yellow_bee
+  - first:
+      213: -20694817385853085
+    second: green_bee
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -85,7 +97,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: purple_bee
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 190
+        width: 145
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96cd858ae5a8e3de0800000000000000
+      internalID: -1351490699008615319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_bee
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 190
+        width: 145
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71a18fa106cf932b0800000000000000
+      internalID: -5604170771586344425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow_bee
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 78
+        width: 145
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e318674b4bb6cca0800000000000000
+      internalID: -5996899921802292247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: green_bee
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 78
+        width: 145
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36f46095c2a76bff0800000000000000
+      internalID: -20694817385853085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

@@ -18,7 +18,7 @@ public class Bee : MonoBehaviour
     private float lastFlip = 0f;
     private float lastPatrolFlip = 0f;
     private float collisionFollowCooldown = 0f;
-    
+    private float patrolTime = 0f;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -47,19 +47,23 @@ public class Bee : MonoBehaviour
                 direction = newDirection;
             }
             lastPatrolFlip = 0;
+            patrolTime = 0;
         } else
         {
+            patrolTime += Time.deltaTime;
             lastPatrolFlip += Time.deltaTime;
+            direction.y = Mathf.Cos(patrolTime * 5) / 3;
             if (lastPatrolFlip > patrolRange) {
                 Flip(false);
             }
             rb.velocity = direction * speed;
+
         }
 
         if (rb.velocity.x * transform.localScale.x > 0)
         {
             Flip(true);
-            direction = (new Vector2(rb.velocity.x, 0)).normalized;
+            direction = new Vector2(rb.velocity.x, rb.velocity.y);
         }
     }
 
@@ -93,12 +97,12 @@ public class Bee : MonoBehaviour
                 Destroy(col.gameObject, .5f);
             }
         }
-        else if (col.contacts[0].point.x <= collider2d.bounds.min.x && direction == Vector2.left && (col.contactCount == 1 || col.contacts[1].point.x <= collider2d.bounds.min.x))
+        else if (col.contacts[0].point.x <= collider2d.bounds.min.x && direction.x < 0 && (col.contactCount == 1 || col.contacts[1].point.x <= collider2d.bounds.min.x))
         {
             Debug.Log("Collided on the left", this);
             Flip(true);
         }
-        else if (col.contacts[0].point.x >= collider2d.bounds.max.x && direction == Vector2.right && (col.contactCount == 1 || col.contacts[1].point.x >= collider2d.bounds.max.x))
+        else if (col.contacts[0].point.x >= collider2d.bounds.max.x && direction.x > 0 && (col.contactCount == 1 || col.contacts[1].point.x >= collider2d.bounds.max.x))
         {
             Debug.Log("Collided on the right", this);
             Flip(true);
