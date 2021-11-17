@@ -132,12 +132,10 @@ public class Snail : MonoBehaviour
         }
 		else if (col.contacts[0].point.x <= collider2d.bounds.min.x && direction == Vector2.left && (col.contactCount == 1 || col.contacts[1].point.x <= collider2d.bounds.min.x))
 		{
-			Debug.Log("Collided on the left", this);
 			Flip();
 		}
 		else if (col.contacts[0].point.x >= collider2d.bounds.max.x && direction == Vector2.right && (col.contactCount == 1 || col.contacts[1].point.x >= collider2d.bounds.max.x))
 		{
-			Debug.Log("Collided on the right", this);
 			Flip();
 		}
 	}

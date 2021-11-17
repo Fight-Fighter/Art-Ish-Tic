@@ -52,7 +52,7 @@ public class Bee : MonoBehaviour
         {
             patrolTime += Time.deltaTime;
             lastPatrolFlip += Time.deltaTime;
-            direction.y = Mathf.Cos(patrolTime * 5) / 3;
+            direction.y = Mathf.Cos(patrolTime * 5) / speed * 1.5f;
             if (lastPatrolFlip > patrolRange) {
                 Flip(false);
             }
@@ -63,7 +63,7 @@ public class Bee : MonoBehaviour
         if (rb.velocity.x * transform.localScale.x > 0)
         {
             Flip(true);
-            direction = new Vector2(rb.velocity.x, rb.velocity.y);
+            direction = new Vector2(Mathf.Sign(rb.velocity.x), rb.velocity.y);
         }
     }
 
@@ -82,9 +82,11 @@ public class Bee : MonoBehaviour
     {
         collisionFollowCooldown = 0.4f;
         if (col.contactCount > 1) { Debug.DrawLine(col.contacts[0].point, col.contacts[1].point, Color.red, 1f); }
+        Debug.DrawLine(col.contacts[0].point, col.contacts[0].point + col.contacts[0].normal, Color.red, 10000f);
+        Debug.Log(col.contacts[0].normal);
         if (col.gameObject.name == "MC")
         {
-            if (col.contacts[0].point.y >= collider2d.bounds.max.y && (col.contactCount == 1 || col.contacts[1].point.y >= collider2d.bounds.max.y))
+            if (col.contacts[0].normal.y > 0)
             {
                 dead = true;
                 GetComponent<Collider2D>().enabled = false; //Removes collider so snall can fall off screen
@@ -97,14 +99,12 @@ public class Bee : MonoBehaviour
                 Destroy(col.gameObject, .5f);
             }
         }
-        else if (col.contacts[0].point.x <= collider2d.bounds.min.x && direction.x < 0 && (col.contactCount == 1 || col.contacts[1].point.x <= collider2d.bounds.min.x))
+        else if (col.contacts[0].normal.x > 0 && direction.x < 0)
         {
-            Debug.Log("Collided on the left", this);
             Flip(true);
         }
-        else if (col.contacts[0].point.x >= collider2d.bounds.max.x && direction.x > 0 && (col.contactCount == 1 || col.contacts[1].point.x >= collider2d.bounds.max.x))
+        else if (col.contacts[0].normal.x < 0 && direction.x > 0)
         {
-            Debug.Log("Collided on the right", this);
             Flip(true);
         }
     }
