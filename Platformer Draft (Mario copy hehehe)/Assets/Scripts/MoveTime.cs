@@ -5,6 +5,7 @@ using UnityEngine;
 public class MoveTime : MonoBehaviour
 {
 
+    public GameObject linePrefab;
     public float speed = 5f;
     public LayerMask groundMask;
     private ContactFilter2D groundFilter;
@@ -37,21 +38,57 @@ public class MoveTime : MonoBehaviour
     public DistanceJoint2D dist;
     public bool isGrappling;
     private float grappleTime = 0;
+    public EdgeCollider2D edgeCol;
+
+    private bool grappleSelected = false;
+    private bool normalSelected = true;
+    private bool freeSelected = false;
 
     void Update()
     {
-        checkGrapple();
+        if (grappleSelected)
+        {
+            checkGrapple();
+        }
     }
 
     void FixedUpdate()
     {
-        
 
         /*if(WallSide() && !IsOnGround() && horMove == 1)
         {
             rb.velocity = new Vector2(-GetWallDirection() * speed * -.75f, wallJumpY);
         }*/
 
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            normalSelected = true;
+            freeSelected = false;
+            grappleSelected = false;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            normalSelected = false;
+            freeSelected = true;
+            grappleSelected = false;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("how is this not working godamnit");
+            normalSelected = false;
+            freeSelected = false;
+            grappleSelected = true;
+        }
+
+        if (!grappleSelected)
+        {
+            isGrappling = false;
+            dist.enabled = false;
+            lineRend.startWidth = 0f;
+            lineRend.endWidth = 0f;
+        }
 
         if (!isGrappling)
         {
@@ -107,12 +144,17 @@ public class MoveTime : MonoBehaviour
         
     void checkGrapple()
     {
+        if (!grappleSelected)
+        {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.Mouse0) && grappleTime == 0)
         {
+            GameObject lineGO = Instantiate(linePrefab);
+            lineRend = lineGO.GetComponent<LineRenderer>();
             Vector2 mousePos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
             lineRend.SetPosition(0, mousePos);
-            lineRend.SetPosition(1, transform.position);
-            Debug.Log(transform.position);
+            lineRend.SetPosition(1, new Vector3(transform.position[0] + 0.5f, transform.position[1], transform.position[2]));
             dist.connectedAnchor = mousePos;
             dist.enabled = true;
             lineRend.enabled = true;
@@ -124,17 +166,20 @@ public class MoveTime : MonoBehaviour
             dist.enabled = false;
             grappleTime = 0;
             isGrappling = false;
+            lineRend.enabled = false;
         }
         if (dist.enabled)
         {
-            lineRend.SetPosition(1, transform.position);
+            lineRend.SetPosition(1, new Vector3(transform.position[0] + 0.5f, transform.position[1], transform.position[2]));
         }
     }
+
 
     void OnCollisionEnter2D(Collision2D col)
     {
         dist.enabled = false;
         isGrappling = false;
+        lineRend.enabled = false;
     }
 
     void Awake() //This appears to be the closest thing to an initializer
