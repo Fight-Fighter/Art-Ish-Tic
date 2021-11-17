@@ -50,15 +50,6 @@ public class MoveTime : MonoBehaviour
         {
             checkGrapple();
         }
-    }
-
-    void FixedUpdate()
-    {
-
-        /*if(WallSide() && !IsOnGround() && horMove == 1)
-        {
-            rb.velocity = new Vector2(-GetWallDirection() * speed * -.75f, wallJumpY);
-        }*/
 
         if (Input.GetKeyDown(KeyCode.N))
         {
@@ -81,6 +72,16 @@ public class MoveTime : MonoBehaviour
             freeSelected = false;
             grappleSelected = true;
         }
+    }
+
+    void FixedUpdate()
+    {
+
+        /*if(WallSide() && !IsOnGround() && horMove == 1)
+        {
+            rb.velocity = new Vector2(-GetWallDirection() * speed * -.75f, wallJumpY);
+        }*/
+
 
         if (!grappleSelected)
         {

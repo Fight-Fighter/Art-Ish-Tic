@@ -15,7 +15,8 @@ public class straightLineDrawing : MonoBehaviour
         if (points == null)
         {
             points = new List<Vector2>();
-            SetPoint(new Vector2(player.position[0] + 0.5f, player.position[1]));
+            Vector2 newPoint = new Vector2(player.position[0] + 0.5f, player.position[1]);
+            SetPoint(newPoint);
             SetPoint(playerPos);
             return;
         }
