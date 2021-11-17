@@ -113,12 +113,14 @@ public class Snail : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.name == "MC")
-        {
-            SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
-			Destroy(col.gameObject, .5f);
-        }
-		else if (col.contacts[0].normal.x > 0 && direction.x < 0)
+		Player p = col.gameObject.GetComponent<Player>();
+		if (p != null)
+		{
+			SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
+			p.TakeDamage(1);
+		}
+
+		if (col.contacts[0].normal.x > 0 && direction.x < 0)
 		{
 			Flip();
 		}
@@ -127,22 +129,7 @@ public class Snail : MonoBehaviour
 			Flip();
 		}
 	}
-
-    void increaseTextUIScore()
-    {
-
-        // Find the Score UI component
-        var textUIComp = GameObject.Find("Score").GetComponent<Text>();
-
-        // Get the string stored in it and convert to an int
-        int score = int.Parse(textUIComp.text);
-
-        // Increment the score
-        score += 10;
-
-        // Convert the score to a string and update the UI
-        textUIComp.text = score.ToString();
-    }
+    
     public float groundRayCastLength = 0.01f;
 
     public bool IsOnGround()

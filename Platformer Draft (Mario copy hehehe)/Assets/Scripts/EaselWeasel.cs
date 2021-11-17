@@ -66,10 +66,11 @@ public class EaselWeasel : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		if (col.gameObject.name == "MC")
+		Player p = col.gameObject.GetComponent<Player>();
+		if (p != null)
 		{
 			SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
-			Destroy(col.gameObject, .5f);
+			p.TakeDamage(1);
 		}
 	}
 

@@ -80,12 +80,14 @@ public class Bee : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         collisionFollowCooldown = 0.4f;
-        if (col.gameObject.name == "MC")
+        Player p = col.gameObject.GetComponent<Player>();
+        if (p != null)
         {
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
-            Destroy(col.gameObject, .5f);
+            p.TakeDamage(1);
         }
-        else if (col.contacts[0].normal.x > 0 && direction.x < 0)
+
+        if (col.contacts[0].normal.x > 0 && direction.x < 0)
         {
             Flip(true);
         }
@@ -93,21 +95,5 @@ public class Bee : MonoBehaviour
         {
             Flip(true);
         }
-    }
-
-    private void increaseTextUIScore()
-    {
-
-        // Find the Score UI component
-        var textUIComp = GameObject.Find("Score").GetComponent<Text>();
-
-        // Get the string stored in it and convert to an int
-        int score = int.Parse(textUIComp.text);
-
-        // Increment the score
-        score += 10;
-
-        // Convert the score to a string and update the UI
-        textUIComp.text = score.ToString();
     }
 }

@@ -110,7 +110,6 @@ public class MoveTime : MonoBehaviour
             }
 
             float vertMove = Input.GetAxis("Jump"); //Refers to the control menu
-            Debug.Log(IsOnGround());
             if (IsOnGround() && isJumping == false)
             {
                 if (vertMove > 0f)
