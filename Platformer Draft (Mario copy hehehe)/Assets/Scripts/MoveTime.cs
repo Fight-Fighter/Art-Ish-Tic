@@ -110,7 +110,7 @@ public class MoveTime : MonoBehaviour
             }
 
             float vertMove = Input.GetAxis("Jump"); //Refers to the control menu
-
+            Debug.Log(IsOnGround());
             if (IsOnGround() && isJumping == false)
             {
                 if (vertMove > 0f)
@@ -235,15 +235,16 @@ public class MoveTime : MonoBehaviour
         int numContacts = collider2d.GetContacts(contacts);
         for (int i = 0;i<numContacts;i++)
         {
-            if (contacts[i].point.y < collider2d.bounds.min.y) { return true; }
+            if (contacts[i].normal.y > 0.5) { return true; }
         }
         return false;
     }
 
     void OnBecameInvisible()  //Seems to be a specific method name, can't change it
     {
-        Debug.Log("MC died lololol");
-        Destroy(gameObject);
+        
+        //Debug.Log("MC died lololol");
+        //Destroy(gameObject);
     }
 
     /*public bool IsWallOnLeft()

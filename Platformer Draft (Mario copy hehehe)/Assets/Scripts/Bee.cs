@@ -10,7 +10,6 @@ public class Bee : MonoBehaviour
     public float aggroRange = 5f;
     public float patrolRange = 2f; //time before flip while patrolling
 
-    private Collider2D collider2d;
     private Rigidbody2D rb;
     private GameObject player = null;
     private Vector2 direction = Vector2.left;
@@ -22,7 +21,6 @@ public class Bee : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        collider2d = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -81,23 +79,10 @@ public class Bee : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         collisionFollowCooldown = 0.4f;
-        if (col.contactCount > 1) { Debug.DrawLine(col.contacts[0].point, col.contacts[1].point, Color.red, 1f); }
-        Debug.DrawLine(col.contacts[0].point, col.contacts[0].point + col.contacts[0].normal, Color.red, 10000f);
-        Debug.Log(col.contacts[0].normal);
         if (col.gameObject.name == "MC")
         {
-            if (col.contacts[0].normal.y < 0)
-            {
-                dead = true;
-                GetComponent<Collider2D>().enabled = false; //Removes collider so snall can fall off screen
-                Destroy(gameObject, 3);
-                increaseTextUIScore();
-            }
-            else
-            {
-                SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
-                Destroy(col.gameObject, .5f);
-            }
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
+            Destroy(col.gameObject, .5f);
         }
         else if (col.contacts[0].normal.x > 0 && direction.x < 0)
         {
