@@ -1,7 +1,25 @@
 fileFormatVersion: 2
 guid: 6267fcc2f30cf914aa841cc688e7af29
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 6243772391605924391
+    second: easelweasel_0
+  - first:
+      213: -1282246809485604184
+    second: easelweasel_1
+  - first:
+      213: 1685184963765044660
+    second: easelweasel_2
+  - first:
+      213: 5883013051041742182
+    second: easelweasel_3
+  - first:
+      213: -8049552306440877896
+    second: easelweasel_4
+  - first:
+      213: 2366780960494497847
+    second: easelweasel_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -40,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -71,9 +89,147 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: easelweasel_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 63
+        width: 300
+        height: 225
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 722ff04c8e556a650800000000000000
+      internalID: 6243772391605924391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: easelweasel_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 63
+        width: 300
+        height: 225
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aa8b36025b843ee0800000000000000
+      internalID: -1282246809485604184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: easelweasel_2
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 63
+        width: 300
+        height: 225
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b58b0acbcaf26710800000000000000
+      internalID: 1685184963765044660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: easelweasel_3
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 63
+        width: 300
+        height: 225
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66d745c4339a4a150800000000000000
+      internalID: 5883013051041742182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: easelweasel_4
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 63
+        width: 300
+        height: 225
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b84aad53de3a4090800000000000000
+      internalID: -8049552306440877896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: easelweasel_5
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 63
+        width: 300
+        height: 225
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 730be6b6ebe78d020800000000000000
+      internalID: 2366780960494497847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

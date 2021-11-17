@@ -21,6 +21,12 @@ public class Bee : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (player == null)
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            if (players != null && players.Length > 0) { player = players[0]; }
+
+        }
     }
 
     // Update is called once per frame
@@ -29,12 +35,7 @@ public class Bee : MonoBehaviour
         lastFlip += Time.deltaTime;
         collisionFollowCooldown -= Time.deltaTime;
         if (dead) { return;  }
-        if (player == null)
-        {
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-            if (players != null && players.Length > 0) { player = players[0]; }
-            
-        }
+        
         if (player != null && player.transform != null && collisionFollowCooldown < 0f && (player.transform.position - transform.position).magnitude < aggroRange)
         {
             Vector2 newVelocity = (player.transform.position - transform.position).normalized * speed;
