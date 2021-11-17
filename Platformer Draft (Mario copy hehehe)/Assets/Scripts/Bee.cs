@@ -86,7 +86,7 @@ public class Bee : MonoBehaviour
         Debug.Log(col.contacts[0].normal);
         if (col.gameObject.name == "MC")
         {
-            if (col.contacts[0].normal.y > 0)
+            if (col.contacts[0].normal.y < 0)
             {
                 dead = true;
                 GetComponent<Collider2D>().enabled = false; //Removes collider so snall can fall off screen
