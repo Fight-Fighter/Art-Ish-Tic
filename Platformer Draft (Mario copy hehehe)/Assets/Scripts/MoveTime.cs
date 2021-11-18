@@ -38,7 +38,6 @@ public class MoveTime : MonoBehaviour
     public DistanceJoint2D dist;
     public bool isGrappling;
     private float grappleTime = 0;
-    public EdgeCollider2D edgeCol;
 
     private bool grappleSelected = false;
     private bool normalSelected = true;

@@ -160,5 +160,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22db7aed8fa3d54799c03ce7e019bac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineRend: {fileID: 0}
-  edgeCol: {fileID: 0}
+  lineRend: {fileID: 4938367631179697179}
+  edgeCol: {fileID: 2893303506193093924}

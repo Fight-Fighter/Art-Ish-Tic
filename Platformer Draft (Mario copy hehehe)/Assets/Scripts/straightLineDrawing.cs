@@ -6,8 +6,16 @@ public class straightLineDrawing : MonoBehaviour
 {
     public LineRenderer lineRend;
     public EdgeCollider2D edgeCol;
-    public Transform player;
+    private Transform player;
 
+    void Awake()
+    {
+        if (player == null)
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            if (players != null && players.Length > 0) { player = players[0].transform; }
+        }
+    }
     List<Vector2> points;
 
     public void UpdateLine(Vector2 playerPos)
