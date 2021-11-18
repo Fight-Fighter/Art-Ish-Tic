@@ -7,7 +7,7 @@ public class straightLineDrawing : MonoBehaviour
     public LineRenderer lineRend;
     public EdgeCollider2D edgeCol;
     private Transform player;
-
+    private float lineLength;
     void Awake()
     {
         if (player == null)
