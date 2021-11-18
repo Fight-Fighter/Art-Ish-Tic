@@ -38,7 +38,6 @@ public class MoveTime : MonoBehaviour
     public DistanceJoint2D dist;
     public bool isGrappling;
     private float grappleTime = 0;
-    public EdgeCollider2D edgeCol;
 
     public static bool grappleSelected = false;
     public static bool normalSelected = true;
@@ -110,7 +109,6 @@ public class MoveTime : MonoBehaviour
             }
 
             float vertMove = Input.GetAxis("Jump"); //Refers to the control menu
-
             if (IsOnGround() && isJumping == false)
             {
                 if (vertMove > 0f)
@@ -235,15 +233,16 @@ public class MoveTime : MonoBehaviour
         int numContacts = collider2d.GetContacts(contacts);
         for (int i = 0;i<numContacts;i++)
         {
-            if (contacts[i].point.y < collider2d.bounds.min.y) { return true; }
+            if (contacts[i].normal.y > 0.5) { return true; }
         }
         return false;
     }
 
     void OnBecameInvisible()  //Seems to be a specific method name, can't change it
     {
-        Debug.Log("MC died lololol");
-        Destroy(gameObject);
+        
+        //Debug.Log("MC died lololol");
+        //Destroy(gameObject);
     }
 
     /*public bool IsWallOnLeft()

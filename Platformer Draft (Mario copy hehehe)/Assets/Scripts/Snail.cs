@@ -113,48 +113,23 @@ public class Snail : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D col)
     {
-		if (col.contactCount > 1) { Debug.DrawLine(col.contacts[0].point, col.contacts[1].point, Color.red, 1f); }
-        if(col.gameObject.name == "MC")
-        {
-			if (col.contacts[0].point.y >= collider2d.bounds.max.y && (col.contactCount == 1 || col.contacts[1].point.y >= collider2d.bounds.max.y))
-            {
-				dead = true;
-                GetComponent<Animator>().SetTrigger("Dead");
-                GetComponent<Collider2D>().enabled = false; //Removes collider so snall can fall off screen
-                direction = new Vector2(direction.x, -1);
-                Destroy(gameObject, 3);
-                increaseTextUIScore();
-            } else
-            {
-                SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
-				Destroy(col.gameObject, .5f);
-            }
-        }
-		else if (col.contacts[0].point.x <= collider2d.bounds.min.x && direction == Vector2.left && (col.contactCount == 1 || col.contacts[1].point.x <= collider2d.bounds.min.x))
+		Player p = col.gameObject.GetComponent<Player>();
+		if (p != null)
+		{
+			SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
+			p.TakeDamage(1);
+		}
+
+		if (col.contacts[0].normal.x > 0 && direction.x < 0)
 		{
 			Flip();
 		}
-		else if (col.contacts[0].point.x >= collider2d.bounds.max.x && direction == Vector2.right && (col.contactCount == 1 || col.contacts[1].point.x >= collider2d.bounds.max.x))
+		else if (col.contacts[0].normal.x < 0 && direction.x > 0)
 		{
 			Flip();
 		}
 	}
-
-    void increaseTextUIScore()
-    {
-
-        // Find the Score UI component
-        var textUIComp = GameObject.Find("Score").GetComponent<Text>();
-
-        // Get the string stored in it and convert to an int
-        int score = int.Parse(textUIComp.text);
-
-        // Increment the score
-        score += 10;
-
-        // Convert the score to a string and update the UI
-        textUIComp.text = score.ToString();
-    }
+    
     public float groundRayCastLength = 0.01f;
 
     public bool IsOnGround()

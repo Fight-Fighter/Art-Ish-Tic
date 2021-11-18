@@ -14,12 +14,13 @@ public class Coins : MonoBehaviour
 
 			SoundManager.Instance.PlayOneShot(SoundManager.Instance.getCoin);
 
-			increaseTextUIScore();
+			//increaseTextUIScore();
 
 			Destroy(gameObject);
 		}
     }
 
+	/*
 	void increaseTextUIScore()
 	{
 
@@ -35,5 +36,6 @@ public class Coins : MonoBehaviour
 		// Convert the score to a string and update the UI
 		textUIComp.text = score.ToString();
 	}
+	*/
 
 }
