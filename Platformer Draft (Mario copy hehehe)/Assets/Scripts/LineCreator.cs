@@ -6,22 +6,12 @@ public class LineCreator : MonoBehaviour
 {
     public GameObject linePrefab;
     LineDrawing activeLine;
-    private bool free = false;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            free = true;
-        }
 
-        else if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.N))
-        {
-            free = false;
-        }
-
-        if (!free)
+        if (!MoveTime.freeSelected)
         {
             return;
         }

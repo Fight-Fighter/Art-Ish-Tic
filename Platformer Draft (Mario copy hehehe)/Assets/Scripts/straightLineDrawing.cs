@@ -7,6 +7,7 @@ public class straightLineDrawing : MonoBehaviour
     public LineRenderer lineRend;
     public EdgeCollider2D edgeCol;
     public Transform player;
+    public float lineLength;
 
     List<Vector2> points;
 
@@ -16,8 +17,14 @@ public class straightLineDrawing : MonoBehaviour
         {
             points = new List<Vector2>();
             Vector2 newPoint = new Vector2(player.position[0] + 0.5f, player.position[1]);
+            Vector2 diff = playerPos - newPoint;
+            float angle = Mathf.Atan2(diff[1], diff[0]);
+            Debug.Log(angle);
+            float newY = Mathf.Sin(angle) * lineLength;
+            float newX = Mathf.Cos(angle) * lineLength;
+            Vector2 nextPoint = new Vector2(newPoint[0] + newX, newPoint[1] + newY);
             SetPoint(newPoint);
-            SetPoint(playerPos);
+            SetPoint(nextPoint);
             return;
         }
         //Check if mouse has moved enough for us to insert through point

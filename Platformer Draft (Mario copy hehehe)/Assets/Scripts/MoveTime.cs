@@ -40,9 +40,9 @@ public class MoveTime : MonoBehaviour
     private float grappleTime = 0;
     public EdgeCollider2D edgeCol;
 
-    private bool grappleSelected = false;
-    private bool normalSelected = true;
-    private bool freeSelected = false;
+    public static bool grappleSelected = false;
+    public static bool normalSelected = true;
+    public static bool freeSelected = false;
 
     void Update()
     {

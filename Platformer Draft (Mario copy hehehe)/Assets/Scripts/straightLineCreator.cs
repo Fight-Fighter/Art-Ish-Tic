@@ -5,28 +5,15 @@ using UnityEngine;
 public class straightLineCreator : MonoBehaviour
 {
     public GameObject linePrefab;
+    public GameObject instantKillPrefab;
+    public GameObject damagePrefab;
+    public GameObject poisonPrefab;
     straightLineDrawing activeLine;
-    private bool normal;
 
-    void Start()
-    {
-        normal = true;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            normal = true;
-        }
 
-        else if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.R))
-        {
-            normal = false;
-        }
-
-        if (!normal)
+        if (!MoveTime.normalSelected)
         {
             return;
         }
