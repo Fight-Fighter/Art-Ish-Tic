@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7893806931636533771}
   m_Layer: 0
   m_Name: InstantKill
-  m_TagString: Untagged
+  m_TagString: InstantKill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,5 +162,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRend: {fileID: 8249285560143289733}
   edgeCol: {fileID: 2221636383721735354}
-  player: {fileID: 0}
   lineLength: 5

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2649626753901551953
+--- !u!1 &7503798243074926891
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4082311090479301044}
-  - component: {fileID: 4938367631179697179}
-  - component: {fileID: 2893303506193093924}
-  - component: {fileID: 2511138718171392776}
+  - component: {fileID: 8376921319088458190}
+  - component: {fileID: 607738501324260449}
+  - component: {fileID: 7259963084650454366}
+  - component: {fileID: 1700153819275289583}
   m_Layer: 0
-  m_Name: Line
-  m_TagString: Untagged
+  m_Name: Damage
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4082311090479301044
+--- !u!4 &8376921319088458190
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2649626753901551953}
+  m_GameObject: {fileID: 7503798243074926891}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.55, y: -3.1419313, z: -31.178232}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!120 &4938367631179697179
+--- !u!120 &607738501324260449
 LineRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2649626753901551953}
+  m_GameObject: {fileID: 7503798243074926891}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -95,8 +95,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.29803923, g: 0.8117647, b: 0.32156864, a: 1}
-      key1: {r: 0.2946778, g: 0.8113208, b: 0.3188304, a: 1}
+      key0: {r: 0.38039216, g: 0.47545448, b: 0.90588236, a: 1}
+      key1: {r: 0.533883, g: 0.6132076, b: 0.30949628, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -104,7 +104,7 @@ LineRenderer:
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 54356
+      ctime1: 65535
       ctime2: 0
       ctime3: 0
       ctime4: 0
@@ -130,35 +130,36 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!68 &2893303506193093924
+--- !u!68 &7259963084650454366
 EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2649626753901551953}
+  m_GameObject: {fileID: 7503798243074926891}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 9.55, y: 3.141931}
+  m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
   - {x: 9.071323, y: 3.1419313}
   - {x: 10.071323, y: 3.1419313}
---- !u!114 &2511138718171392776
+--- !u!114 &1700153819275289583
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2649626753901551953}
+  m_GameObject: {fileID: 7503798243074926891}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b22db7aed8fa3d54799c03ce7e019bac, type: 3}
+  m_Script: {fileID: 11500000, guid: c3da15eeae7c2fe4b98599283d3fb1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineRend: {fileID: 4938367631179697179}
-  edgeCol: {fileID: 2893303506193093924}
+  lineRend: {fileID: 607738501324260449}
+  edgeCol: {fileID: 7259963084650454366}
+  lineLength: 5

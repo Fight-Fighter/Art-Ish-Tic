@@ -7,7 +7,7 @@ public class straightLineDrawing : MonoBehaviour
     public LineRenderer lineRend;
     public EdgeCollider2D edgeCol;
     private Transform player;
-    private float lineLength;
+    public float lineLength;
     void Awake()
     {
         if (player == null)
@@ -51,4 +51,47 @@ public class straightLineDrawing : MonoBehaviour
             edgeCol.points = points.ToArray();
         }
     }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (gameObject.tag == "Poison")
+        {
+            Poison(col);
+        }
+        else if (gameObject.tag == "InstantKill")
+        {
+            InstantKill(col);
+        }
+        else if (gameObject.tag == "Damage")
+        {
+            Damage(col);
+        }
+
+    }
+
+    void Poison(Collision2D col)
+    {
+
+    }
+
+    void InstantKill(Collision2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            Player p = col.gameObject.GetComponent<Player>();
+            p.TakeDamage(3);
+        }
+
+        else if (col.gameObject.tag == "Enemy")
+        {
+            Destroy(col.gameObject, 0.2f);
+        }
+    }
+
+    void Damage(Collision2D col)
+    {
+        
+    }
+
+
 }
