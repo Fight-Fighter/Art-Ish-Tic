@@ -14,7 +14,7 @@ public class straightLineCreator : MonoBehaviour
     void Update()
     {
 
-        if (MoveTime.freeSelected)
+        if (MoveTime.freeSelected || MoveTime.grappleSelected)
         {
             return;
         }

@@ -8,11 +8,13 @@ public class Player : MonoBehaviour
     public int health = 3;
     public UIHealthBar healthBar;
     private Animator anim;
+    public static Player Instance;
     // Update is called once per frame
     void Awake()
     {
         healthBar.SetHearts(3);
         anim = GetComponent<Animator>();
+        Instance = this;
     }
     public void TakeDamage(int damage)
     {

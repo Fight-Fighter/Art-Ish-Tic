@@ -75,6 +75,7 @@ public class MoveTime : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.R))
         {
+            Debug.Log("Selected");
             normalSelected = false;
             freeSelected = false;
             grappleSelected = true;
@@ -184,7 +185,6 @@ public class MoveTime : MonoBehaviour
         
     void checkGrapple()
     {
-        Debug.Log("Checking");
         if (!grappleSelected)
         {
             return;
