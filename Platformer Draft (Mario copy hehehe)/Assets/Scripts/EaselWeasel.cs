@@ -34,8 +34,11 @@ public class EaselWeasel : MonoBehaviour
 
     private void Update()
     {
-		Vector2 playerDirection = (player.transform.position - transform.position).normalized;
-		if (transform.localScale.x * playerDirection.x > 0) { Flip(); }
+		if (player != null)
+		{
+			Vector2 playerDirection = (player.transform.position - transform.position).normalized;
+			if (transform.localScale.x * playerDirection.x > 0) { Flip(); }
+		}
 	}
     void FixedUpdate()
 	{

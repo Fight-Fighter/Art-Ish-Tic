@@ -18,6 +18,7 @@ public class Bee : MonoBehaviour
     private float lastPatrolFlip = 0f;
     private float collisionFollowCooldown = 0f;
     private float patrolTime = 0f;
+    public int health = 1;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -95,5 +96,20 @@ public class Bee : MonoBehaviour
         {
             Flip(true);
         }
+    }
+
+    void Poison()
+    {
+
+    }
+
+    void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject, 0.5f);
+        }
+
     }
 }

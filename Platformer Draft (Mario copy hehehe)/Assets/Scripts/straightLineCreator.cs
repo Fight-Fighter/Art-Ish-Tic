@@ -8,19 +8,38 @@ public class straightLineCreator : MonoBehaviour
     public GameObject instantKillPrefab;
     public GameObject damagePrefab;
     public GameObject poisonPrefab;
+    private GameObject lineGO;
     straightLineDrawing activeLine;
 
     void Update()
     {
 
-        if (!MoveTime.normalSelected)
+        if (MoveTime.freeSelected)
         {
             return;
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            GameObject lineGO = Instantiate(linePrefab);
+            Debug.Log(MoveTime.instantKillSelected);
+            if (MoveTime.damageSelected)
+            {
+                Debug.Log("selection works");
+                lineGO = Instantiate(damagePrefab);
+            }
+            else if (MoveTime.poisonSelected)
+            {
+                lineGO = Instantiate(poisonPrefab);
+            }
+            else if (MoveTime.instantKillSelected)
+            {
+                
+                lineGO = Instantiate(instantKillPrefab);
+            }
+            else
+            {
+                lineGO = Instantiate(linePrefab);
+            }
             activeLine = lineGO.GetComponent<straightLineDrawing>();
             Vector2 playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             activeLine.UpdateLine(playerPos);

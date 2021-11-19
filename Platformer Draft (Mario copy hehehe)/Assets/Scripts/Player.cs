@@ -22,6 +22,6 @@ public class Player : MonoBehaviour
             anim.SetBool("Dead", true);
             Destroy(gameObject, 0.5f);
         }
-        healthBar.SetHearts(health);
+        healthBar.SetHearts(Mathf.Max(health, 0));
     }
 }

@@ -162,3 +162,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRend: {fileID: 6691787824587296403}
   edgeCol: {fileID: 3490727960750036908}
+  lineLength: 5

@@ -42,6 +42,9 @@ public class MoveTime : MonoBehaviour
     public static bool grappleSelected = false;
     public static bool normalSelected = true;
     public static bool freeSelected = false;
+    public static bool poisonSelected = false;
+    public static bool damageSelected = false;
+    public static bool instantKillSelected = false;
 
     void Update()
     {
@@ -55,21 +58,59 @@ public class MoveTime : MonoBehaviour
             normalSelected = true;
             freeSelected = false;
             grappleSelected = false;
-        }
+            poisonSelected = false;
+            damageSelected = false;
+            instantKillSelected = false;
+}
 
         else if (Input.GetKeyDown(KeyCode.F))
         {
             normalSelected = false;
             freeSelected = true;
             grappleSelected = false;
+            poisonSelected = false;
+            damageSelected = false;
+            instantKillSelected = false;
         }
 
         else if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("how is this not working godamnit");
             normalSelected = false;
             freeSelected = false;
             grappleSelected = true;
+            poisonSelected = false;
+            damageSelected = false;
+            instantKillSelected = false;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            normalSelected = false;
+            freeSelected = false;
+            grappleSelected = false;
+            poisonSelected = true;
+            damageSelected = false;
+            instantKillSelected = false;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            normalSelected = false;
+            freeSelected = false;
+            grappleSelected = false;
+            poisonSelected = false;
+            damageSelected = true;
+            instantKillSelected = false;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            normalSelected = false;
+            freeSelected = false;
+            grappleSelected = false;
+            poisonSelected = false;
+            damageSelected = false;
+            instantKillSelected = true;
         }
     }
 
@@ -143,6 +184,7 @@ public class MoveTime : MonoBehaviour
         
     void checkGrapple()
     {
+        Debug.Log("Checking");
         if (!grappleSelected)
         {
             return;
