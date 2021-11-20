@@ -76,21 +76,4 @@ public class EaselWeasel : MonoBehaviour
 			p.TakeDamage(1);
 		}
 	}
-
-	void increaseTextUIScore()
-	{
-
-		// Find the Score UI component
-		var textUIComp = GameObject.Find("Score").GetComponent<Text>();
-
-		// Get the string stored in it and convert to an int
-		int score = int.Parse(textUIComp.text);
-
-		// Increment the score
-		score += 10;
-
-		// Convert the score to a string and update the UI
-		textUIComp.text = score.ToString();
-	}
-	public float groundRayCastLength = 0.01f;
 }

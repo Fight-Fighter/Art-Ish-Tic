@@ -18,18 +18,23 @@ public class straightLineDrawing : MonoBehaviour
     }
     List<Vector2> points;
 
-    public void UpdateLine(Vector2 playerPos)
+    public void UpdateLine(Vector2 mousePos)
     {
         if (points == null)
         {
+            if ((mousePos.x - player.position.x) * player.transform.localScale.x < 0)
+            {
+                player.transform.localScale = new Vector3(-1 * player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
+            }
             points = new List<Vector2>();
-            Vector2 newPoint = new Vector2(player.position[0] + 0.5f, player.position[1]);
-            Vector2 diff = playerPos - newPoint;
+            Vector2 newPoint = new Vector2(player.position[0] + 0.5f * Mathf.Sign(player.transform.localScale.x), player.position[1]);
+            Vector2 diff = mousePos - newPoint;
             float angle = Mathf.Atan2(diff[1], diff[0]);
             Debug.Log(angle);
-            float newY = Mathf.Sin(angle) * lineLength;
-            float newX = Mathf.Cos(angle) * lineLength;
-            Vector2 nextPoint = new Vector2(newPoint[0] + newX, newPoint[1] + newY);
+            Vector2 diffVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * Mathf.Min(lineLength, diff.magnitude);
+            Vector2 nextPoint = newPoint + diffVector;
+            Debug.Log(diff.magnitude);
+            Debug.Log((nextPoint - newPoint).magnitude);
             SetPoint(newPoint);
             SetPoint(nextPoint);
             return;
@@ -71,26 +76,44 @@ public class straightLineDrawing : MonoBehaviour
 
     void Poison(Collision2D col)
     {
-
+        Player p = col.gameObject.GetComponent<Player>();
+        if (p != null)
+        {
+            p.Poison();
+        }
+        Enemy e = col.gameObject.GetComponent<Enemy>();
+        if (e != null)
+        {
+            e.Poison();
+        }
     }
 
     void InstantKill(Collision2D col)
     {
-        if (col.gameObject.tag == "Player")
+        Player p = col.gameObject.GetComponent<Player>();
+        if (p != null)
         {
-            Player p = col.gameObject.GetComponent<Player>();
-            p.TakeDamage(3);
+            p.TakeDamage(p.health);
         }
-
-        else if (col.gameObject.tag == "Enemy")
+        Enemy e = col.gameObject.GetComponent<Enemy>();
+        if (e != null)
         {
-            Destroy(col.gameObject, 0.2f);
+            e.TakeDamage(e.health);
         }
     }
 
     void Damage(Collision2D col)
     {
-        
+        Player p = col.gameObject.GetComponent<Player>();
+        if (p != null)
+        {
+            p.TakeDamage(1);
+        }
+        Enemy e = col.gameObject.GetComponent<Enemy>();
+        if (e != null)
+        {
+            e.TakeDamage(1);
+        }
     }
 
 

@@ -6,7 +6,6 @@ public class MoveTime : MonoBehaviour
 {
 
     public GameObject linePrefab;
-    public float speed = 5f;
     public LayerMask groundMask;
     private ContactFilter2D groundFilter;
 
@@ -14,6 +13,7 @@ public class MoveTime : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private Collider2D collider2d;
+    private Player player;
 
     public bool facingRight = true;
 
@@ -45,6 +45,20 @@ public class MoveTime : MonoBehaviour
     public static bool poisonSelected = false;
     public static bool damageSelected = false;
     public static bool instantKillSelected = false;
+
+    void Awake() //This appears to be the closest thing to an initializer
+    {
+        sr = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        collider2d = GetComponent<Collider2D>();
+        player = GetComponent<Player>();
+        dist.enabled = false;
+        isGrappling = false;
+
+        width = GetComponent<Collider2D>().bounds.extents.x + 0.1f;
+        height = GetComponent<Collider2D>().bounds.extents.y + 0.2f; //Gets dimensions of hitbox
+    }
 
     void Update()
     {
@@ -137,7 +151,8 @@ public class MoveTime : MonoBehaviour
 
             float horMove = Input.GetAxisRaw("Horizontal");
             Vector2 vect = rb.velocity;
-            rb.velocity = new Vector2(horMove * speed, vect.y);
+            float actualSpeed = player.GetSpeed();
+            rb.velocity = new Vector2(horMove * actualSpeed, vect.y);
             animator.SetFloat("Speed", Mathf.Abs(horMove));
 
             if (horMove > 0 && !facingRight)
@@ -221,19 +236,6 @@ public class MoveTime : MonoBehaviour
         dist.enabled = false;
         isGrappling = false;
         lineRend.enabled = false;
-    }
-
-    void Awake() //This appears to be the closest thing to an initializer
-    {
-        sr = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        collider2d = GetComponent<Collider2D>();
-        dist.enabled = false;
-        isGrappling = false;
-
-        width = GetComponent<Collider2D>().bounds.extents.x + 0.1f;
-        height = GetComponent<Collider2D>().bounds.extents.y + 0.2f; //Gets dimensions of hitbox
     }
 
     void Start()

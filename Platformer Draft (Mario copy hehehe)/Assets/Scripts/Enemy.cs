@@ -2,36 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int health = 3;
-    public float speed = 5f;
-    public UIHealthBar healthBar;
     private float poisonTime = 0f;
+    public int health = 1;
+    public float speed = 2;
     private Animator anim;
-    public static Player Instance;
-    // Update is called once per frame
     void Awake()
     {
-        healthBar.SetHearts(3);
         anim = GetComponent<Animator>();
-        Instance = this;
     }
 
-    private void Update()
+    // Update is called once per frame
+    void FixedUpdate()
     {
         poisonTime -= Time.deltaTime;
-    }
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            //anim.SetBool("Dead", true);
-            Destroy(gameObject, 0.5f);
-        }
-        healthBar.SetHearts(Mathf.Max(health, 0));
     }
 
     public void Poison()
@@ -43,6 +29,16 @@ public class Player : MonoBehaviour
     {
         poisonTime = time;
     }
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            //anim.SetBool("Dead", true);
+            Destroy(gameObject, 0.5f);
+        }
+    }
+
     public float GetSpeed()
     {
         if (poisonTime > 0)

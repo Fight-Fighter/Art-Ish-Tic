@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class Bee : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float speed = 2f;
     public float aggroRange = 5f;
     public float patrolRange = 2f; //time before flip while patrolling
 
     private Rigidbody2D rb;
+    private Enemy enemy;
     private GameObject player = null;
     private Vector2 direction = Vector2.left;
     private bool dead = false;
@@ -18,10 +18,10 @@ public class Bee : MonoBehaviour
     private float lastPatrolFlip = 0f;
     private float collisionFollowCooldown = 0f;
     private float patrolTime = 0f;
-    public int health = 1;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        enemy = GetComponent<Enemy>();
         if (player == null)
         {
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -36,10 +36,12 @@ public class Bee : MonoBehaviour
         lastFlip += Time.deltaTime;
         collisionFollowCooldown -= Time.deltaTime;
         if (dead) { return;  }
-        
+
+        float actualSpeed = enemy.GetSpeed();
+
         if (player != null && player.transform != null && collisionFollowCooldown < 0f && (player.transform.position - transform.position).magnitude < aggroRange)
         {
-            Vector2 newVelocity = (player.transform.position - transform.position).normalized * speed;
+            Vector2 newVelocity = (player.transform.position - transform.position).normalized * actualSpeed;
             Vector2 newDirection = (new Vector2(rb.velocity.x, 0)).normalized;
             if (newDirection.x == direction.x || Flip(false))
             {
@@ -52,11 +54,11 @@ public class Bee : MonoBehaviour
         {
             patrolTime += Time.deltaTime;
             lastPatrolFlip += Time.deltaTime;
-            direction.y = Mathf.Cos(patrolTime * 5) / speed * 1.5f;
+            direction.y = Mathf.Cos(patrolTime * 5) / actualSpeed * 1.5f;
             if (lastPatrolFlip > patrolRange) {
                 Flip(false);
             }
-            rb.velocity = direction * speed;
+            rb.velocity = direction * actualSpeed;
 
         }
 
@@ -96,20 +98,5 @@ public class Bee : MonoBehaviour
         {
             Flip(true);
         }
-    }
-
-    void Poison()
-    {
-
-    }
-
-    void TakeDamage(int damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Destroy(gameObject, 0.5f);
-        }
-
     }
 }

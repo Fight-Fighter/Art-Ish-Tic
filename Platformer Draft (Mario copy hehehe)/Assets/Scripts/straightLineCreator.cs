@@ -21,7 +21,6 @@ public class straightLineCreator : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Debug.Log(MoveTime.instantKillSelected);
             if (MoveTime.damageSelected)
             {
                 Debug.Log("selection works");
