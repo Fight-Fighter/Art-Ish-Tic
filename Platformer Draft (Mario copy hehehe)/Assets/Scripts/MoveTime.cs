@@ -155,15 +155,7 @@ public class MoveTime : MonoBehaviour
             rb.velocity = new Vector2(horMove * actualSpeed, vect.y);
             animator.SetFloat("Speed", Mathf.Abs(horMove));
 
-            if (horMove > 0 && !facingRight)
-            {
-                FlipMC();
-            }
-
-            else if (horMove < 0 && facingRight)
-            {
-                FlipMC();
-            }
+            if (rb.velocity.x * transform.localScale.x < 0) { FlipMC(); }
 
             float vertMove = Input.GetAxis("Jump"); //Refers to the control menu
             if (IsOnGround() && isJumping == false)

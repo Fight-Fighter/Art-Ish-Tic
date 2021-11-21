@@ -20,6 +20,7 @@ public class straightLineDrawing : MonoBehaviour
 
     public void UpdateLine(Vector2 mousePos)
     {
+        if (mousePos == null) { Debug.Log("Null Reference mousePos"); return; }
         if (points == null)
         {
             if ((mousePos.x - player.position.x) * player.transform.localScale.x < 0)
