@@ -12,11 +12,18 @@ public class Player : MonoBehaviour
     private Animator anim;
     public static Player Instance;
     // Update is called once per frame
+
+    [SerializeField] private UI_Inventory uiInventory;
+    public Inventory inventory;
+
     void Awake()
     {
         healthBar.SetHearts(3);
         anim = GetComponent<Animator>();
         Instance = this;
+
+        inventory = new Inventory();
+        uiInventory.SetInventory(inventory);
     }
 
     private void Update()
