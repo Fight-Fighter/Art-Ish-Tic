@@ -28,15 +28,15 @@ public class straightLineDrawing : MonoBehaviour
                 player.transform.localScale = new Vector3(-1 * player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
             }
             points = new List<Vector2>();
-            Vector2 newPoint = new Vector2(player.position[0] + 0.7f * Mathf.Sign(player.transform.localScale.x), player.position[1]);
-            Vector2 diff = mousePos - newPoint;
+            Vector2 firstPoint = new Vector2(player.position[0] + 0.7f * Mathf.Sign(player.transform.localScale.x), player.position[1]);
+            Vector2 diff = mousePos - firstPoint;
             float angle = Mathf.Atan2(diff[1], diff[0]);
             Debug.Log(angle);
             Vector2 diffVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * Mathf.Min(lineLength, diff.magnitude);
-            Vector2 nextPoint = newPoint + diffVector;
+            Vector2 nextPoint = firstPoint + diffVector;
             Debug.Log(diff.magnitude);
-            Debug.Log((nextPoint - newPoint).magnitude);
-            SetPoint(newPoint);
+            Debug.Log((nextPoint - firstPoint).magnitude);
+            SetPoint(firstPoint);
             SetPoint(nextPoint);
             return;
         }
