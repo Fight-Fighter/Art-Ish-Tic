@@ -34,15 +34,31 @@ public class straightLineDrawing : MonoBehaviour
             Debug.Log(angle);
             Vector2 diffVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * Mathf.Min(lineLength, diff.magnitude);
             Vector2 nextPoint = firstPoint + diffVector;
+            Vector2 unitVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * (nextPoint - firstPoint).magnitude / 20;
             Debug.Log(diff.magnitude);
             Debug.Log((nextPoint - firstPoint).magnitude);
-            SetPoint(firstPoint);
-            SetPoint(nextPoint);
+            Vector2 currPoint = firstPoint;
+            
+            
+            StartCoroutine(lineDraw(currPoint, unitVector));
+            
             return;
         }
         //Check if mouse has moved enough for us to insert through point
         //If it has: Insert point at mouse position
 
+    }
+
+    IEnumerator lineDraw(Vector2 currPoint, Vector2 unitVector)
+    {
+        int i = 0;
+        while (i < 20 && Input.GetMouseButton(0))
+        {
+            SetPoint(currPoint);
+            currPoint = currPoint + unitVector;
+            i += 1;
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
     }
 
     void SetPoint(Vector2 point)
