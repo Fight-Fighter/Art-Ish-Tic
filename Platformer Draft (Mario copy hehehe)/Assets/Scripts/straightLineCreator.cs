@@ -8,29 +8,29 @@ public class straightLineCreator : MonoBehaviour
     public GameObject instantKillPrefab;
     public GameObject damagePrefab;
     public GameObject poisonPrefab;
+    public Player player;
     private GameObject lineGO;
     straightLineDrawing activeLine;
 
     void Update()
     {
 
-        if (MoveTime.freeSelected || MoveTime.grappleSelected)
+        if (UI_Inventory.IsSelected(Item.ItemType.FreeformPaint) || UI_Inventory.IsSelected(Item.ItemType.GrapplePaint))
         {
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && player.HasPaint())
         {
-            if (MoveTime.damageSelected)
+            if (UI_Inventory.IsSelected(Item.ItemType.DamagePaint))
             {
-                Debug.Log("selection works");
                 lineGO = Instantiate(damagePrefab);
             }
-            else if (MoveTime.poisonSelected)
+            else if (UI_Inventory.IsSelected(Item.ItemType.PoisonPaint))
             {
                 lineGO = Instantiate(poisonPrefab);
             }
-            else if (MoveTime.instantKillSelected)
+            else if (UI_Inventory.IsSelected(Item.ItemType.KillPaint))
             {
                 
                 lineGO = Instantiate(instantKillPrefab);

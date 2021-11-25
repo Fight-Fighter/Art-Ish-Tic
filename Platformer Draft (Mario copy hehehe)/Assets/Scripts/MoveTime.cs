@@ -39,13 +39,6 @@ public class MoveTime : MonoBehaviour
     public bool isGrappling;
     private float grappleTime = 0;
 
-    public static bool grappleSelected = false;
-    public static bool normalSelected = true;
-    public static bool freeSelected = false;
-    public static bool poisonSelected = false;
-    public static bool damageSelected = false;
-    public static bool instantKillSelected = false;
-
     void Awake() //This appears to be the closest thing to an initializer
     {
         sr = GetComponent<SpriteRenderer>();
@@ -62,70 +55,9 @@ public class MoveTime : MonoBehaviour
 
     void Update()
     {
-        if (grappleSelected)
+        if (UI_Inventory.IsSelected(Item.ItemType.GrapplePaint))
         {
             checkGrapple();
-        }
-
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            normalSelected = true;
-            freeSelected = false;
-            grappleSelected = false;
-            poisonSelected = false;
-            damageSelected = false;
-            instantKillSelected = false;
-}
-
-        else if (Input.GetKeyDown(KeyCode.F))
-        {
-            normalSelected = false;
-            freeSelected = true;
-            grappleSelected = false;
-            poisonSelected = false;
-            damageSelected = false;
-            instantKillSelected = false;
-        }
-
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Selected");
-            normalSelected = false;
-            freeSelected = false;
-            grappleSelected = true;
-            poisonSelected = false;
-            damageSelected = false;
-            instantKillSelected = false;
-        }
-
-        else if (Input.GetKeyDown(KeyCode.P))
-        {
-            normalSelected = false;
-            freeSelected = false;
-            grappleSelected = false;
-            poisonSelected = true;
-            damageSelected = false;
-            instantKillSelected = false;
-        }
-
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            normalSelected = false;
-            freeSelected = false;
-            grappleSelected = false;
-            poisonSelected = false;
-            damageSelected = true;
-            instantKillSelected = false;
-        }
-
-        else if (Input.GetKeyDown(KeyCode.I))
-        {
-            normalSelected = false;
-            freeSelected = false;
-            grappleSelected = false;
-            poisonSelected = false;
-            damageSelected = false;
-            instantKillSelected = true;
         }
     }
 
@@ -138,7 +70,7 @@ public class MoveTime : MonoBehaviour
         }*/
 
 
-        if (!grappleSelected)
+        if (!UI_Inventory.IsSelected(Item.ItemType.GrapplePaint))
         {
             isGrappling = false;
             dist.enabled = false;
@@ -192,7 +124,7 @@ public class MoveTime : MonoBehaviour
         
     void checkGrapple()
     {
-        if (!grappleSelected)
+        if (!UI_Inventory.IsSelected(Item.ItemType.GrapplePaint))
         {
             return;
         }

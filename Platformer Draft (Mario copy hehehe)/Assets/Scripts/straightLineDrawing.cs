@@ -52,11 +52,13 @@ public class straightLineDrawing : MonoBehaviour
     IEnumerator lineDraw(Vector2 currPoint, Vector2 unitVector)
     {
         int i = 0;
-        while (i < 20 && Input.GetMouseButton(0))
+        Player playerComponent = player.GetComponent<Player>();
+        while (i < 20 && Input.GetMouseButton(0) && playerComponent.HasPaint())
         {
             SetPoint(currPoint);
             currPoint = currPoint + unitVector;
             i += 1;
+            playerComponent.UsePaint(10);
             yield return new WaitForSecondsRealtime(0.05f);
         }
     }

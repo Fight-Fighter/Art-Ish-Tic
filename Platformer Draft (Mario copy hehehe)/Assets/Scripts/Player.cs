@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         poisonTime -= Time.deltaTime;
+        if (transform.position.y < -30) { TakeDamage(health); }
     }
     public void TakeDamage(int damage)
     {
@@ -57,5 +58,15 @@ public class Player : MonoBehaviour
             return speed / 2;
         }
         return speed;
+    }
+
+    public bool HasPaint()
+    {
+        return inventory.HasItem((Item.ItemType) UI_Inventory.selection);
+    }
+
+    public void UsePaint(float amt)
+    {
+        inventory.RemoveItem(new Item { itemType = (Item.ItemType) UI_Inventory.selection, amount = amt});
     }
 }

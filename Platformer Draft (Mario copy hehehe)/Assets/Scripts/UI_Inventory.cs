@@ -11,8 +11,9 @@ public class UI_Inventory : MonoBehaviour
     private RectTransform[] paintLocations;
     private Transform paintContainer;
     private Transform paintTemplate;
-    public int selection = 0;
+    public static int selection = 0;
     public Player player;
+    public Gauge gauge;
     private void Awake()
     {
         Transform paintLocationsTransform = transform.Find("PaintLocations");
@@ -74,10 +75,12 @@ public class UI_Inventory : MonoBehaviour
         {
             selection += 1;
         }
-        List<Item> itemList = inventory.GetItemList();
+
+        //paint selection
+        List<Item> itemList = inventory.GetPaintList();
         if (itemList.Count != 0)
         {
-            selection = (selection + itemList.Count) % itemList.Count;
+            selection = (selection + itemList.Count) % 6;
             if (oldselection != selection)
             {
                 RefreshInventoryItems();
@@ -110,7 +113,13 @@ public class UI_Inventory : MonoBehaviour
             RectTransform itemSlotRectTransform = Instantiate(paintTemplate, paintContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
             int locNumber = (int) item.itemType;
-            itemSlotRectTransform.anchoredPosition = paintLocations[(6 + locNumber - selection) % 6].anchoredPosition;
+            int pos = (6 + locNumber - selection) % 6;
+            itemSlotRectTransform.anchoredPosition = paintLocations[pos].anchoredPosition;
+            if (pos == 0)
+            {
+                gauge.SetMaxValue(1000);
+                gauge.SetValue(item.amount);
+            }
             Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
             //Image border = itemSlotRectTransform.Find("border").GetComponent<Image>();
             image.sprite = item.GetSprite();
@@ -126,5 +135,9 @@ public class UI_Inventory : MonoBehaviour
             }
             */
         }
+    }
+    public static bool IsSelected(Item.ItemType paintType)
+    {
+        return selection == (int)paintType;
     }
 }

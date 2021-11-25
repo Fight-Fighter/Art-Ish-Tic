@@ -11,7 +11,7 @@ public class LineCreator : MonoBehaviour
     void Update()
     {
 
-        if (!MoveTime.freeSelected)
+        if (!UI_Inventory.IsSelected(Item.ItemType.FreeformPaint))
         {
             return;
         }

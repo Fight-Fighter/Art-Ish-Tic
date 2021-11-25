@@ -16,9 +16,14 @@ public class Item
         FreeformPaint
     }
     public ItemType itemType;
-    public int amount;
+    public float amount;
 
     public bool IsStackable()
+    {
+        return true;
+    }
+
+    public bool IsPaint()
     {
         return true;
     }
@@ -36,4 +41,6 @@ public class Item
             case ItemType.FreeformPaint: return ItemAssets.Instance.FreeformPaintSprite;
         }
     }
+
+    
 }
