@@ -134,7 +134,7 @@ public class MoveTime : MonoBehaviour
             lineRend = lineGO.GetComponent<LineRenderer>();
             Vector2 mousePos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
             lineRend.SetPosition(0, mousePos);
-            lineRend.SetPosition(1, new Vector3(transform.position[0] + 0.5f, transform.position[1], transform.position[2]));
+            //lineRend.SetPosition(1, new Vector3(transform.position[0] + 0.7f * Mathf.Sign(player.transform.localScale.x), transform.position[1], transform.position[2]));
             dist.connectedAnchor = mousePos;
             dist.enabled = true;
             lineRend.enabled = true;
@@ -150,7 +150,7 @@ public class MoveTime : MonoBehaviour
         }
         if (dist.enabled)
         {
-            lineRend.SetPosition(1, new Vector3(transform.position[0] + 0.5f, transform.position[1], transform.position[2]));
+            lineRend.SetPosition(1, new Vector3(transform.position[0] + 0.7f * Mathf.Sign(player.transform.localScale.x), transform.position[1], transform.position[2]));
         }
     }
 
@@ -201,7 +201,7 @@ public class MoveTime : MonoBehaviour
         int numContacts = collider2d.GetContacts(contacts);
         for (int i = 0;i<numContacts;i++)
         {
-            if (contacts[i].normal.y > 0.5) { return true; }
+            if (Vector2.Angle(Vector2.up, contacts[i].normal) < 60) { return true; }
         }
         return false;
     }
