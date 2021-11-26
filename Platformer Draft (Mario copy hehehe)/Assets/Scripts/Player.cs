@@ -69,4 +69,9 @@ public class Player : MonoBehaviour
     {
         inventory.RemoveItem(new Item { itemType = (Item.ItemType) UI_Inventory.selection, amount = amt});
     }
+
+    public void UsePaint(Item.ItemType t, float amt)
+    {
+        inventory.RemoveItem(new Item { itemType = t, amount = amt });
+    }
 }

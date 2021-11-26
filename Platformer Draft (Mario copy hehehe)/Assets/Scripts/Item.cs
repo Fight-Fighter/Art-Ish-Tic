@@ -15,6 +15,7 @@ public class Item
         KillPaint,
         FreeformPaint
     }
+
     public ItemType itemType;
     public float amount;
 
