@@ -14,6 +14,7 @@ public class UI_Inventory : MonoBehaviour
     public static int selection = 0;
     public Player player;
     public Gauge gauge;
+
     private void Awake()
     {
         Transform paintLocationsTransform = transform.Find("PaintLocations");
@@ -26,6 +27,7 @@ public class UI_Inventory : MonoBehaviour
         }
         paintContainer = transform.Find("PaintContainer");
         paintTemplate = transform.Find("PaintTemplate");
+        
     }
 
     private void Update()

@@ -25,7 +25,7 @@ public class UIHealthBar : MonoBehaviour
         {
             RectTransform heartRectTransform = Instantiate(heartTemplate, heartContainer).GetComponent<RectTransform>();
             heartRectTransform.gameObject.SetActive(true);
-            heartRectTransform.anchoredPosition = new Vector2(i * heartSize, 0);
+            heartRectTransform.anchoredPosition = new Vector2(18 + i * heartSize, -18);
         }
     }
 }
