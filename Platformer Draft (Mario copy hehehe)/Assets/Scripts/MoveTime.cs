@@ -95,7 +95,9 @@ public class MoveTime : MonoBehaviour
                 if (vertMove > 0f)
                 {
                     isJumping = true;
+                    animator.SetTrigger("Jump");
                     SoundManager.Instance.PlayOneShot(SoundManager.Instance.jump);
+
                 }
             }
 
@@ -117,6 +119,7 @@ public class MoveTime : MonoBehaviour
             else
             {
                 isJumping = false;
+                //animator.SetTrigger("Land");
                 jumpButtonPressTime = 0;
             }
         }
@@ -150,7 +153,7 @@ public class MoveTime : MonoBehaviour
         }
         if (dist.enabled)
         {
-            lineRend.SetPosition(1, new Vector3(transform.position[0] + 0.7f * Mathf.Sign(player.transform.localScale.x), transform.position[1], transform.position[2]));
+            lineRend.SetPosition(1, new Vector3(transform.position[0] + 1f * Mathf.Sign(player.transform.localScale.x), transform.position[1] + 0.15f, transform.position[2]));
         }
     }
 
