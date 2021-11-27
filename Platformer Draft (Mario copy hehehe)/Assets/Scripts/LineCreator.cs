@@ -11,7 +11,7 @@ public class LineCreator : MonoBehaviour
     void Update()
     {
 
-        if (!UI_Inventory.IsSelected(Item.ItemType.FreeformPaint))
+        if (!UI_Inventory.IsSelected(Item.ItemType.FreeformPaint) || !UI_Inventory.IsSelected(Item.ItemType.GrapplePaint))
         {
             return;
         }
@@ -29,6 +29,7 @@ public class LineCreator : MonoBehaviour
 
         if(activeLine != null)
         {
+            
             Vector2 playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             activeLine.UpdateLine(playerPos);
         }
