@@ -119,12 +119,15 @@ public class UI_Inventory : MonoBehaviour
             itemSlotRectTransform.anchoredPosition = paintLocations[pos].anchoredPosition;
             if (pos == 0)
             {
-                gauge.SetMaxValue(1000);
+                gauge.SetMaxValue(item.maxAmount);
                 gauge.SetValue(item.amount);
             }
             Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
             //Image border = itemSlotRectTransform.Find("border").GetComponent<Image>();
             image.sprite = item.GetSprite();
+            Image amount = itemSlotRectTransform.Find("amount").GetComponent<Image>();
+            amount.sprite = item.GetSprite();
+            amount.fillAmount = Mathf.Clamp(1 - item.amount / item.maxAmount, 0, 1);
             /*
             TextMeshProUGUI itemAmountText = itemSlotRectTransform.Find("amount").GetComponent<TextMeshProUGUI>();
             if (item.amount > 1)

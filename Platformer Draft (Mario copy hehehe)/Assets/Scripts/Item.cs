@@ -18,7 +18,7 @@ public class Item
 
     public ItemType itemType;
     public float amount;
-
+    public float maxAmount = 1000;
     public bool IsStackable()
     {
         return true;
