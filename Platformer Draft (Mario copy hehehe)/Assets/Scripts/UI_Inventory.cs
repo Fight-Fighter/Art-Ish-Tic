@@ -126,8 +126,12 @@ public class UI_Inventory : MonoBehaviour
             //Image border = itemSlotRectTransform.Find("border").GetComponent<Image>();
             image.sprite = item.GetSprite();
             Image amount = itemSlotRectTransform.Find("amount").GetComponent<Image>();
-            amount.sprite = item.GetSprite();
             amount.fillAmount = Mathf.Clamp(1 - item.amount / item.maxAmount, 0, 1);
+            Image color = itemSlotRectTransform.Find("color").GetComponent<Image>();
+            color.color = item.GetColor();
+            Image amount2 = itemSlotRectTransform.Find("amount (1)").GetComponent<Image>();
+            amount2.sprite = item.GetSprite();
+            amount2.fillAmount = Mathf.Clamp(1 - item.amount / item.maxAmount, 0, 1);
             /*
             TextMeshProUGUI itemAmountText = itemSlotRectTransform.Find("amount").GetComponent<TextMeshProUGUI>();
             if (item.amount > 1)

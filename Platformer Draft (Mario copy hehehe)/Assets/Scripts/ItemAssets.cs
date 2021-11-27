@@ -12,7 +12,7 @@ public class ItemAssets : MonoBehaviour
         Instance = this;
     }
 
-    //public Transform pfItemWorld;
+    public Transform pfItemWorld;
 
     public Sprite NormalPaintSprite;
     public Sprite GrapplePaintSprite;

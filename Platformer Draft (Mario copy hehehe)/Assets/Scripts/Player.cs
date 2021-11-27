@@ -31,7 +31,19 @@ public class Player : MonoBehaviour
         poisonTime -= Time.deltaTime;
         if (transform.position.y < -30) { TakeDamage(health); }
     }
-    public void TakeDamage(int damage)
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
+        if (itemWorld != null)
+        {
+            if (inventory.AddItem(itemWorld.GetItem()))
+            {
+                itemWorld.DestroySelf();
+            }
+        }
+    }
+        public void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0)
