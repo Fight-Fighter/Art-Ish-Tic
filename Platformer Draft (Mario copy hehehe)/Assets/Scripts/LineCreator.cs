@@ -13,6 +13,7 @@ public class LineCreator : MonoBehaviour
 
         if (!UI_Inventory.IsSelected(Item.ItemType.FreeformPaint) || !UI_Inventory.IsSelected(Item.ItemType.GrapplePaint))
         {
+        
             return;
         }
 
@@ -29,8 +30,15 @@ public class LineCreator : MonoBehaviour
 
         if(activeLine != null)
         {
-            
-            Vector2 playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 playerPos;
+            if (UI_Inventory.IsSelected(Item.ItemType.GrapplePaint)) {
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                playerPos = players[0].transform.position;
+            }
+            else {
+                Debug.Log("id d0feigr0grzdokfg");
+                playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
             activeLine.UpdateLine(playerPos);
         }
 
