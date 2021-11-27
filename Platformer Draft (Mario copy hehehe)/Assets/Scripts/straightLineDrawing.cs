@@ -34,13 +34,14 @@ public class straightLineDrawing : MonoBehaviour
             Debug.Log(angle);
             Vector2 diffVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * Mathf.Min(lineLength, diff.magnitude);
             Vector2 nextPoint = firstPoint + diffVector;
-            Vector2 unitVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * (nextPoint - firstPoint).magnitude / 20;
+            int numSteps = 1 + (int) (nextPoint - firstPoint).magnitude * 5;
+            Vector2 unitVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * (nextPoint - firstPoint).magnitude / numSteps;
             Debug.Log(diff.magnitude);
             Debug.Log((nextPoint - firstPoint).magnitude);
             Vector2 currPoint = firstPoint;
             
             
-            StartCoroutine(lineDraw(currPoint, unitVector));
+            StartCoroutine(lineDraw(currPoint, unitVector, numSteps + 1));
             
             return;
         }
@@ -49,11 +50,11 @@ public class straightLineDrawing : MonoBehaviour
 
     }
 
-    IEnumerator lineDraw(Vector2 currPoint, Vector2 unitVector)
+    IEnumerator lineDraw(Vector2 currPoint, Vector2 unitVector, int steps)
     {
         int i = 0;
         Player playerComponent = player.GetComponent<Player>();
-        while (i < 20 && Input.GetMouseButton(0) && playerComponent.HasPaint())
+        while (i < steps && Input.GetMouseButton(0) && playerComponent.HasPaint())
         {
             SetPoint(currPoint);
             currPoint = currPoint + unitVector;
