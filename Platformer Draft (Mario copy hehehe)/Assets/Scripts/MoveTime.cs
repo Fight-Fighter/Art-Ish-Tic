@@ -36,7 +36,7 @@ public class MoveTime : MonoBehaviour
     public Camera mainCamera;
     public LineRenderer lineRend;
     public DistanceJoint2D dist;
-    public bool isGrappling;
+    public static bool isGrappling;
     private float grappleTime = 0;
 
     void Awake() //This appears to be the closest thing to an initializer
