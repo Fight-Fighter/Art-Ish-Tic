@@ -28,7 +28,7 @@ public class straightLineDrawing : MonoBehaviour
                 player.transform.localScale = new Vector3(-1 * player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
             }
             points = new List<Vector2>();
-            Vector2 firstPoint = new Vector2(player.position[0] + 1f * Mathf.Sign(player.transform.localScale.x), player.position[1] + 0.15f);
+            Vector2 firstPoint = player.Find("paintgun").Find("Start").position;
             Vector2 diff = mousePos - firstPoint;
             float angle = Mathf.Atan2(diff[1], diff[0]);
             Debug.Log(angle);
@@ -38,10 +38,10 @@ public class straightLineDrawing : MonoBehaviour
             Debug.Log(diff.magnitude);
             Debug.Log((nextPoint - firstPoint).magnitude);
             Vector2 currPoint = firstPoint;
-            
-            
+
+
             StartCoroutine(lineDraw(currPoint, unitVector));
-            
+
             return;
         }
         //Check if mouse has moved enough for us to insert through point

@@ -153,7 +153,7 @@ public class MoveTime : MonoBehaviour
         }
         if (dist.enabled)
         {
-            lineRend.SetPosition(1, new Vector3(transform.position[0] + 1f * Mathf.Sign(player.transform.localScale.x), transform.position[1] + 0.15f, transform.position[2]));
+            lineRend.SetPosition(1, transform.Find("paintgun").Find("Start").position);
         }
     }
 
