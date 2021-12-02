@@ -5,6 +5,7 @@ using UnityEngine;
 public class LineCreator : MonoBehaviour
 {
     public GameObject linePrefab;
+    public Player player;
     LineDrawing activeLine;
 
     // Update is called once per frame
@@ -15,24 +16,26 @@ public class LineCreator : MonoBehaviour
         {
             return;
         }
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        bool hasPaint = player.HasPaint();
+        if (Input.GetKeyDown(KeyCode.Mouse0) && hasPaint)
         {
             GameObject lineGO = Instantiate(linePrefab);
             activeLine = lineGO.GetComponent<LineDrawing>();
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if(activeLine != null && hasPaint)
+        {
+            player.UsePaint(10); //change this line to change amount of paint used
+            Vector2 playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            activeLine.UpdateLine(playerPos);
+        }
+
+        if (Input.GetMouseButtonUp(0) || !hasPaint)
         {
             activeLine = null;
         }
 
-        if(activeLine != null)
-        {
-            
-            Vector2 playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            activeLine.UpdateLine(playerPos);
-        }
+        
 
     }
 }
