@@ -84,7 +84,8 @@ public class MoveTime : MonoBehaviour
             float horMove = Input.GetAxisRaw("Horizontal");
             Vector2 vect = rb.velocity;
             float actualSpeed = player.GetSpeed();
-            rb.velocity = new Vector2(horMove * actualSpeed, vect.y);
+            vect.x = horMove * actualSpeed;
+            rb.velocity = vect;
             animator.SetFloat("Speed", Mathf.Abs(horMove));
 
             if (rb.velocity.x * transform.localScale.x < 0) { FlipMC(); }
