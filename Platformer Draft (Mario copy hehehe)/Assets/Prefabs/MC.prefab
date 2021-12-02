@@ -207,7 +207,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ca9a9d0b4888110498c5e13f7f0b2a93, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -235,7 +235,6 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   lineRend: {fileID: 4302434347513040504}
   dist: {fileID: 4302434347513040503}
-  isGrappling: 0
 --- !u!120 &4302434347513040504
 LineRenderer:
   m_ObjectHideFlags: 0
