@@ -8039,6 +8039,12 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 805944764}
+    - target: {fileID: 8829652028540189825, guid: e54f6782e6b7f194585b453cb4c9b51b,
+        type: 3}
+      propertyPath: grappleLine
+      value: 
+      objectReference: {fileID: 6231886216916804914, guid: 2cf2bc1f4b96c2e40b3c8fd3b187b20c,
+        type: 3}
     - target: {fileID: 8829652028540189826, guid: e54f6782e6b7f194585b453cb4c9b51b,
         type: 3}
       propertyPath: m_RootOrder
@@ -8480,6 +8486,17 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1377100529}
+    - target: {fileID: 4302434347513040501, guid: 9c6a8c54a4f26df41819e9b4a5ed28fd,
+        type: 3}
+      propertyPath: grappleLine
+      value: 
+      objectReference: {fileID: 580024559481428961, guid: ee6954603ae134d47ad350813807c5ed,
+        type: 3}
+    - target: {fileID: 4302434347513040501, guid: 9c6a8c54a4f26df41819e9b4a5ed28fd,
+        type: 3}
+      propertyPath: maxGrappleLength
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4302434347513040502, guid: 9c6a8c54a4f26df41819e9b4a5ed28fd,
         type: 3}
       propertyPath: healthBar
