@@ -43,5 +43,17 @@ public class Item
         }
     }
 
-    
+    public Color GetColor()
+    {
+        switch (itemType)
+        {
+            default:
+            case ItemType.NormalPaint: return Color.blue;
+            case ItemType.GrapplePaint: return new Color(165,42,42);
+            case ItemType.DamagePaint: return Color.yellow;
+            case ItemType.PoisonPaint: return Color.green;
+            case ItemType.KillPaint: return Color.red;
+            case ItemType.FreeformPaint: return Color.magenta;
+        }
+    }
 }

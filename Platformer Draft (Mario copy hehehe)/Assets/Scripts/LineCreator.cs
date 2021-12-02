@@ -11,7 +11,7 @@ public class LineCreator : MonoBehaviour
     void Update()
     {
 
-        if (!UI_Inventory.IsSelected(Item.ItemType.FreeformPaint) && (!UI_Inventory.IsSelected(Item.ItemType.GrapplePaint)))
+        if (!UI_Inventory.IsSelected(Item.ItemType.FreeformPaint)/* && !UI_Inventory.IsSelected(Item.ItemType.GrapplePaint)*/)
         {
             return;
         }
