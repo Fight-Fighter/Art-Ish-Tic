@@ -44,7 +44,6 @@ public class LineCreator : MonoBehaviour
             activeLine = null;
         }
 
-        
         if(activeLine != null)
         {
             Vector2 playerPos;
