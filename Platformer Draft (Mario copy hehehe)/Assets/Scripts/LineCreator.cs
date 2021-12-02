@@ -5,6 +5,7 @@ using UnityEngine;
 public class LineCreator : MonoBehaviour
 {
     public GameObject linePrefab;
+    public Player player;
     public GameObject grappleLine;
     private GameObject lineGO;
     LineDrawing activeLine;
@@ -17,8 +18,8 @@ public class LineCreator : MonoBehaviour
         {
             return;
         }
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        bool hasPaint = player.HasPaint();
+        if (Input.GetKeyDown(KeyCode.Mouse0) && hasPaint)
         {
             if (UI_Inventory.IsSelected(Item.ItemType.FreeformPaint))
             {
@@ -31,11 +32,19 @@ public class LineCreator : MonoBehaviour
             activeLine = lineGO.GetComponent<LineDrawing>();
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if(activeLine != null && hasPaint)
+        {
+            player.UsePaint(10); //change this line to change amount of paint used
+            Vector2 playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            activeLine.UpdateLine(playerPos);
+        }
+
+        if (Input.GetMouseButtonUp(0) || !hasPaint)
         {
             activeLine = null;
         }
 
+        
         if(activeLine != null)
         {
             Vector2 playerPos;

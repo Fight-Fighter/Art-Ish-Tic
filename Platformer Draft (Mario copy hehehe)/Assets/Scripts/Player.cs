@@ -77,6 +77,11 @@ public class Player : MonoBehaviour
         return inventory.HasItem((Item.ItemType) UI_Inventory.selection);
     }
 
+    public bool HasPaint(Item.ItemType itype)
+    {
+        return inventory.HasItem(itype);
+    }
+
     public void UsePaint(float amt)
     {
         inventory.RemoveItem(new Item { itemType = (Item.ItemType) UI_Inventory.selection, amount = amt});
