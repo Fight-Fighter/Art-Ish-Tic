@@ -5,9 +5,10 @@ using UnityEngine;
 public class MoveTime : MonoBehaviour
 {
 
-    public GameObject linePrefab;
+    public GameObject grappleLine;
     public LayerMask groundMask;
     private ContactFilter2D groundFilter;
+    public int maxGrappleLength;
 
     private SpriteRenderer sr;
     private Rigidbody2D rb;
@@ -133,9 +134,23 @@ public class MoveTime : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && grappleTime == 0)
         {
-            GameObject lineGO = Instantiate(linePrefab);
+            GameObject lineGO = Instantiate(grappleLine);
             lineRend = lineGO.GetComponent<LineRenderer>();
             Vector2 mousePos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Transform playerPosition = gameObject.transform;
+            Transform startPosition = transform.Find("paintgun").Find("Start");
+            RaycastHit hit;
+            Vector2 slope = new Vector2(mousePos.x - startPosition.position.x, mousePos.y - startPosition.position.y);
+            RaycastHit2D rch = Physics2D.Raycast(startPosition.position, slope, maxGrappleLength);
+            if ((bool) rch == false) {
+                return;
+            }
+            mousePos = rch.point;
+
+            if ((mousePos.x - playerPosition.position.x) * playerPosition.localScale.x < 0)
+            {
+                playerPosition.localScale = new Vector3(-1 * playerPosition.localScale.x, playerPosition.localScale.y, playerPosition.localScale.z);
+            }
             lineRend.SetPosition(0, mousePos);
             //lineRend.SetPosition(1, new Vector3(transform.position[0] + 0.7f * Mathf.Sign(player.transform.localScale.x), transform.position[1], transform.position[2]));
             dist.connectedAnchor = mousePos;

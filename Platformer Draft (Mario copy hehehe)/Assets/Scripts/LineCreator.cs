@@ -5,20 +5,29 @@ using UnityEngine;
 public class LineCreator : MonoBehaviour
 {
     public GameObject linePrefab;
+    public GameObject grappleLine;
+    private GameObject lineGO;
     LineDrawing activeLine;
 
     // Update is called once per frame
     void Update()
     {
 
-        if (!UI_Inventory.IsSelected(Item.ItemType.FreeformPaint)/* && !UI_Inventory.IsSelected(Item.ItemType.GrapplePaint)*/)
+        if (!UI_Inventory.IsSelected(Item.ItemType.FreeformPaint) && !UI_Inventory.IsSelected(Item.ItemType.GrapplePaint))
         {
             return;
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            GameObject lineGO = Instantiate(linePrefab);
+            if (UI_Inventory.IsSelected(Item.ItemType.FreeformPaint))
+            {
+                lineGO = Instantiate(linePrefab);
+            }
+            else
+            {
+                lineGO = Instantiate(grappleLine);
+            }
             activeLine = lineGO.GetComponent<LineDrawing>();
         }
 
@@ -38,7 +47,8 @@ public class LineCreator : MonoBehaviour
             else
             {
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                playerPos = new Vector2(players[0].transform.position[0] - 1, players[0].transform.position[1] - 1);
+                Vector2 linePos = players[0].transform.position - (players[0].transform.localScale * 0.25f) - (players[0].transform.up * 0.15f);
+                playerPos = new Vector2(linePos.x, linePos.y);
                 if (MoveTime.isGrappling)
                 {
                     activeLine.UpdateLine(playerPos);
