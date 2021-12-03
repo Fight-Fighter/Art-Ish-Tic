@@ -140,8 +140,8 @@ public class MoveTime : MonoBehaviour
             Vector2 mousePos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
             Transform playerPosition = gameObject.transform;
             Transform startPosition = transform.Find("paintgun").Find("Start");
-            RaycastHit hit;
             Vector2 slope = new Vector2(mousePos.x - startPosition.position.x, mousePos.y - startPosition.position.y);
+
             RaycastHit2D rch = Physics2D.Raycast(startPosition.position, slope, maxGrappleLength);
             if ((bool) rch == false) {
                 return;

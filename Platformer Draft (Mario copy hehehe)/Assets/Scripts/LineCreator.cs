@@ -39,25 +39,20 @@ public class LineCreator : MonoBehaviour
             activeLine = lineGO.GetComponent<LineDrawing>();
         }
 
-        if(activeLine != null && hasPaint)
-        {
-            player.UsePaint(10); //change this line to change amount of paint used
-            Vector2 playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            activeLine.UpdateLine(playerPos);
-        }
-
         if (Input.GetMouseButtonUp(0) || !hasPaint)
         {
             activeLine = null;
         }
 
-        if(activeLine != null)
+        if(activeLine != null && hasPaint)
         {
             Vector2 playerPos;
             if (UI_Inventory.IsSelected(Item.ItemType.FreeformPaint))
             {
+                
                 playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 activeLine.UpdateLine(playerPos);
+                
             }
             else
             {
