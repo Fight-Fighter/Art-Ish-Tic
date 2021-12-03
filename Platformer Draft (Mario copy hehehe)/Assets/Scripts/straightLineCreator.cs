@@ -8,9 +8,16 @@ public class straightLineCreator : MonoBehaviour
     public GameObject instantKillPrefab;
     public GameObject damagePrefab;
     public GameObject poisonPrefab;
-    public Player player;
+    private Player player;
     private GameObject lineGO;
     straightLineDrawing activeLine;
+
+    private void Awake()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        if (players == null || players.Length == 0) { return; }
+        player = players[0].GetComponent<Player>();
+    }
 
     void Update()
     {

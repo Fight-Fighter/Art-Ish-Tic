@@ -5,10 +5,17 @@ using UnityEngine;
 public class LineCreator : MonoBehaviour
 {
     public GameObject linePrefab;
-    public Player player;
+    private Player player;
     public GameObject grappleLine;
     private GameObject lineGO;
     LineDrawing activeLine;
+
+    private void Awake()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        if (players == null || players.Length == 0) { return; }
+        player = players[0].GetComponent<Player>();
+    }
 
     // Update is called once per frame
     void Update()
