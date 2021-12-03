@@ -20,7 +20,7 @@ public class LineCreator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (PauseMenu.isPaused) { return; }
         if (!UI_Inventory.IsSelected(Item.ItemType.FreeformPaint) && !UI_Inventory.IsSelected(Item.ItemType.GrapplePaint))
         {
             return;

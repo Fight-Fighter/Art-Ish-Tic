@@ -21,7 +21,7 @@ public class straightLineCreator : MonoBehaviour
 
     void Update()
     {
-
+        if (PauseMenu.isPaused) { return; }
         if (UI_Inventory.IsSelected(Item.ItemType.FreeformPaint) || UI_Inventory.IsSelected(Item.ItemType.GrapplePaint))
         {
             return;

@@ -32,6 +32,7 @@ public class UI_Inventory : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenu.isPaused) { return; }
         int oldselection = selection;
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {

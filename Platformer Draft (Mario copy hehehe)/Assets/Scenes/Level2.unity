@@ -1395,7 +1395,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1532165791
-  m_SortingLayer: -1
+  m_SortingLayer: 1
   m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -8136,6 +8136,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1907540790007438043, guid: 104c18cd5938cf14daa690b38541ad09,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2370484761631028683, guid: 104c18cd5938cf14daa690b38541ad09,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2370484761631028683, guid: 104c18cd5938cf14daa690b38541ad09,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2370484761631028683, guid: 104c18cd5938cf14daa690b38541ad09,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2370484761631028683, guid: 104c18cd5938cf14daa690b38541ad09,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2370484761631028683, guid: 104c18cd5938cf14daa690b38541ad09,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5071147954230818122, guid: 104c18cd5938cf14daa690b38541ad09,
         type: 3}
       propertyPath: player
@@ -8297,6 +8327,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa25d615786b99d41b2c59ddcd966132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1285494134 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3068403945831542799, guid: 104c18cd5938cf14daa690b38541ad09,
+    type: 3}
+  m_PrefabInstance: {fileID: 1114324149}
+  m_PrefabAsset: {fileID: 0}
+--- !u!210 &1285494139
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285494134}
+  m_Enabled: 1
+  m_SortingLayerID: -437671695
+  m_SortingLayer: -1
+  m_SortingOrder: 0
 --- !u!1001 &1377100528
 PrefabInstance:
   m_ObjectHideFlags: 0
