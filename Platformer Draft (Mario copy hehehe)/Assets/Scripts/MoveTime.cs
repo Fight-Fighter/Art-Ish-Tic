@@ -144,7 +144,6 @@ public class MoveTime : MonoBehaviour
 
             RaycastHit2D rch = Physics2D.Raycast(startPosition.position, slope, maxGrappleLength);
             if ((bool) rch == false) {
-                Debug.Log("uhgg[epfdv[f");
                 return;
             }
             mousePos = rch.point;
