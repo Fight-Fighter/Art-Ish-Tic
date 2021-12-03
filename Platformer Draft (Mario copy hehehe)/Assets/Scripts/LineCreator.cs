@@ -49,7 +49,7 @@ public class LineCreator : MonoBehaviour
             Vector2 playerPos;
             if (UI_Inventory.IsSelected(Item.ItemType.FreeformPaint))
             {
-                
+                player.UsePaint(10);
                 playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 activeLine.UpdateLine(playerPos);
                 
