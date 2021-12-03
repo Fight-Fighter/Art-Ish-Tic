@@ -8421,10 +8421,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4302434346185612583, guid: 9c6a8c54a4f26df41819e9b4a5ed28fd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4302434347513040463, guid: 9c6a8c54a4f26df41819e9b4a5ed28fd,
         type: 3}
       propertyPath: m_Name
       value: MC
+      objectReference: {fileID: 0}
+    - target: {fileID: 4302434347513040463, guid: 9c6a8c54a4f26df41819e9b4a5ed28fd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4302434347513040498, guid: 9c6a8c54a4f26df41819e9b4a5ed28fd,
         type: 3}
@@ -8507,5 +8517,10 @@ PrefabInstance:
       propertyPath: uiInventory
       value: 
       objectReference: {fileID: 1114324150}
+    - target: {fileID: 4302434347752802951, guid: 9c6a8c54a4f26df41819e9b4a5ed28fd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c6a8c54a4f26df41819e9b4a5ed28fd, type: 3}
