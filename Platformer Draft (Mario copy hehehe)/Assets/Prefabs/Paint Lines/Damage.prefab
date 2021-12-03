@@ -163,3 +163,4 @@ MonoBehaviour:
   lineRend: {fileID: 607738501324260449}
   edgeCol: {fileID: 7259963084650454366}
   lineLength: 5
+  paintType: 2

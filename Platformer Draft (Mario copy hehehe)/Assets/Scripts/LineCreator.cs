@@ -12,6 +12,7 @@ public class LineCreator : MonoBehaviour
 
     private void Awake()
     {
+        UI_Inventory.Instance.OnSelectionChanged += Event_SetNull;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         if (players == null || players.Length == 0) { return; }
         player = players[0].GetComponent<Player>();
@@ -67,5 +68,9 @@ public class LineCreator : MonoBehaviour
             
         }
 
+    }
+    void Event_SetNull(object Sender, System.EventArgs e)
+    {
+        activeLine = null;
     }
 }

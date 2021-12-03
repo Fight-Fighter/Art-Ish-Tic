@@ -8,6 +8,7 @@ public class straightLineDrawing : MonoBehaviour
     public EdgeCollider2D edgeCol;
     private Transform player;
     public float lineLength;
+    public Item.ItemType paintType;
     void Awake()
     {
         if (player == null)
@@ -58,7 +59,7 @@ public class straightLineDrawing : MonoBehaviour
             SetPoint(currPoint);
             currPoint = currPoint + unitVector;
             i += 1;
-            playerComponent.UsePaint(10); //change this line to change amount of paint used
+            playerComponent.UsePaint(paintType, 10); //change this line to change amount of paint used
             yield return new WaitForSecondsRealtime(0.05f);
         }
     }

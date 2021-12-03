@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,16 +8,20 @@ using TMPro;
 public class UI_Inventory : MonoBehaviour
 {
 
+    public event EventHandler OnSelectionChanged;
+
     private Inventory inventory;
     private RectTransform[] paintLocations;
     private Transform paintContainer;
     private Transform paintTemplate;
     public static int selection = 0;
+    public static UI_Inventory Instance;
     public Player player;
     public Gauge gauge;
 
     private void Awake()
     {
+        Instance = this;
         Transform paintLocationsTransform = transform.Find("PaintLocations");
         paintLocations = new RectTransform[6];
         int i = 0;
@@ -86,6 +91,7 @@ public class UI_Inventory : MonoBehaviour
             selection = (selection + itemList.Count) % 6;
             if (oldselection != selection)
             {
+                OnSelectionChanged?.Invoke(this, EventArgs.Empty);
                 RefreshInventoryItems();
             }
         }
