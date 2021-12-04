@@ -56,6 +56,7 @@ public class MoveTime : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenu.isPaused) { return; }
         if (UI_Inventory.IsSelected(Item.ItemType.GrapplePaint))
         {
             checkGrapple();

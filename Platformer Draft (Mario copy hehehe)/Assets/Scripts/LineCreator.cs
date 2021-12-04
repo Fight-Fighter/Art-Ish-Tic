@@ -5,15 +5,23 @@ using UnityEngine;
 public class LineCreator : MonoBehaviour
 {
     public GameObject linePrefab;
-    public Player player;
+    private Player player;
     public GameObject grappleLine;
     private GameObject lineGO;
     LineDrawing activeLine;
 
+    private void Awake()
+    {
+        UI_Inventory.Instance.OnSelectionChanged += Event_SetNull;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        if (players == null || players.Length == 0) { return; }
+        player = players[0].GetComponent<Player>();
+    }
+
     // Update is called once per frame
     void Update()
     {
-
+        if (PauseMenu.isPaused) { return; }
         if (!UI_Inventory.IsSelected(Item.ItemType.FreeformPaint) && !UI_Inventory.IsSelected(Item.ItemType.GrapplePaint))
         {
             return;
@@ -42,7 +50,7 @@ public class LineCreator : MonoBehaviour
             Vector2 playerPos;
             if (UI_Inventory.IsSelected(Item.ItemType.FreeformPaint))
             {
-                
+                player.UsePaint(10);
                 playerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 activeLine.UpdateLine(playerPos);
                 
@@ -60,5 +68,9 @@ public class LineCreator : MonoBehaviour
             
         }
 
+    }
+    void Event_SetNull(object Sender, System.EventArgs e)
+    {
+        activeLine = null;
     }
 }

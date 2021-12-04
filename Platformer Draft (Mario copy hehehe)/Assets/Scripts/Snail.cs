@@ -20,8 +20,13 @@ public class Snail : MonoBehaviour
 	private float timeToStop = 0f;
 	private float jumpingTimeElapsed = 0f;
 	private bool dead = false;
+
+	private GameObject player;
 	void Awake()
 	{
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		if (players == null || players.Length == 0) { return; }
+		player = players[0];
 		rb = GetComponent<Rigidbody2D>();
 		collider2d = GetComponent<Collider2D>();
 	}
@@ -103,10 +108,6 @@ public class Snail : MonoBehaviour
 	{
 
 		if (lastTurn < 1f) { return; }
-		//Debug.Log("Following player");
-		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-		if (players == null || players.Length == 0) { return; }
-		GameObject player = players[0];
 		if (player.transform.position.x <= transform.position.x && direction.x > 0) { Flip(); }
 		else if (player.transform.position.x >= transform.position.x && direction.x < 0) { Flip(); }
 	}
