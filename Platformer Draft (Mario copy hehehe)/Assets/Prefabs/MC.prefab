@@ -224,11 +224,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eabdae0cac841a488f2938345cbeab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linePrefab: {fileID: 2649626753901551953, guid: 45f866d826e67334ca4e1196c3d4940c,
+  grappleLine: {fileID: 580024559481428961, guid: ee6954603ae134d47ad350813807c5ed,
     type: 3}
   groundMask:
     serializedVersion: 2
     m_Bits: 512
+  maxGrappleLength: 0
   facingRight: 1
   jumpSpeed: 5
   wallJumpY: 10

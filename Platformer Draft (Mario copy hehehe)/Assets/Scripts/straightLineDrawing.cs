@@ -8,6 +8,8 @@ public class straightLineDrawing : MonoBehaviour
     public EdgeCollider2D edgeCol;
     private Transform player;
     public float lineLength;
+    public int divisor = 2;
+
     void Awake()
     {
         if (player == null)
@@ -30,17 +32,12 @@ public class straightLineDrawing : MonoBehaviour
             points = new List<Vector2>();
             Vector2 firstPoint = player.Find("paintgun").Find("Start").position;
             Vector2 diff = mousePos - firstPoint;
-            float angle = Mathf.Atan2(diff[1], diff[0]);
-            Debug.Log(angle);
-            Vector2 diffVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * Mathf.Min(lineLength, diff.magnitude);
-            Vector2 nextPoint = firstPoint + diffVector;
-            Vector2 unitVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * (nextPoint - firstPoint).magnitude / 20;
-            Debug.Log(diff.magnitude);
-            Debug.Log((nextPoint - firstPoint).magnitude);
+            diff.Normalize();
+            diff = new Vector2(diff.x / divisor, diff.y / divisor);
             Vector2 currPoint = firstPoint;
 
 
-            StartCoroutine(lineDraw(currPoint, unitVector));
+            StartCoroutine(lineDraw(currPoint, diff));
 
             return;
         }
@@ -51,14 +48,12 @@ public class straightLineDrawing : MonoBehaviour
 
     IEnumerator lineDraw(Vector2 currPoint, Vector2 unitVector)
     {
-        int i = 0;
         Player playerComponent = player.GetComponent<Player>();
-        while (i < 20 && Input.GetMouseButton(0) && playerComponent.HasPaint())
+        while (Input.GetMouseButton(0) && playerComponent.HasPaint())
         {
             SetPoint(currPoint);
             currPoint = currPoint + unitVector;
-            i += 1;
-            playerComponent.UsePaint(10); //change this line to change amount of paint used
+            playerComponent.UsePaint(20); //change this line to change amount of paint used
             yield return new WaitForSecondsRealtime(0.05f);
         }
     }
