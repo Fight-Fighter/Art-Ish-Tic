@@ -85,6 +85,10 @@ public class UI_Inventory : MonoBehaviour
         }
 
         //paint selection
+        if (inventory == null)
+        {
+            return;
+        }
         List<Item> itemList = inventory.GetPaintList();
         if (itemList.Count != 0)
         {
@@ -98,9 +102,9 @@ public class UI_Inventory : MonoBehaviour
 
     }
 
-    public void SetInventory(Inventory inventory)
+    public void SetInventory(Inventory newInventory)
     {
-        this.inventory = inventory;
+        this.inventory = newInventory;
 
         inventory.OnItemListChanged += Inventory_OnItemListChanged;
         RefreshInventoryItems();

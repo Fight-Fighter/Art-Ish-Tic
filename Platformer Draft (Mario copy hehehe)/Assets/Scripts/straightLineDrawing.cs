@@ -54,7 +54,6 @@ public class straightLineDrawing : MonoBehaviour
         {
             SetPoint(currPoint);
             currPoint = currPoint + unitVector;
-            i += 1;
             playerComponent.UsePaint(paintType, 10); //change this line to change amount of paint used
             playerComponent.UsePaint(20); //change this line to change amount of paint used
             yield return new WaitForSecondsRealtime(0.05f);

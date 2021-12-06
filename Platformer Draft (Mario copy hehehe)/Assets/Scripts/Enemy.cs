@@ -36,6 +36,10 @@ public class Enemy : MonoBehaviour
         {
             //anim.SetBool("Dead", true);
             Destroy(gameObject, 0.5f);
+            if (gameObject.tag == "ArtBlock")
+            {
+                ArtBlock.Dead = true;
+            }
         }
     }
 
@@ -46,5 +50,15 @@ public class Enemy : MonoBehaviour
             return speed / 2;
         }
         return speed;
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        Player p = col.gameObject.GetComponent<Player>();
+        if (p != null)
+        {
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
+            p.TakeDamage(1);
+        }
     }
 }

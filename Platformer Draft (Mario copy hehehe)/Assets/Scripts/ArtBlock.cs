@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ArtBlock : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class ArtBlock : MonoBehaviour
     public float postJumpRestingTime = .5f;
     private ArtBlockState state;
     public GameObject player { get; private set; }
+    public static bool Dead = false;
+    public static float poisonTime;
+    private Enemy enemy;
+    public int health = 1;
     // Start is called before the first frame update
     void Awake()
     {
@@ -17,6 +22,7 @@ public class ArtBlock : MonoBehaviour
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
             if (players != null && players.Length > 0) { player = players[0]; }
         }
+        enemy = GetComponent<Enemy>();
     }
 
     // Update is called once per frame
@@ -26,7 +32,69 @@ public class ArtBlock : MonoBehaviour
         if (next != null)
         {
             state = next;
-            Debug.Log("Entering state " + next.GetType().ToString());
+            //Debug.Log("Entering state " + next.GetType().ToString());
+        }
+        poisonTime -= Time.deltaTime;
+    }
+
+    void OnBecameInvisible()
+    {
+        if (Dead)
+        {
+            SceneManager.LoadScene(3);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        Player p = col.gameObject.GetComponent<Player>();
+
+        if (p != null)
+        {
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
+            p.TakeDamage(1);
+        }
+
+        if (col.gameObject.tag == "Poison" || col.gameObject.tag == "InstantKill" || col.gameObject.tag == "Damage")
+        {
+            LineContact(col.gameObject.tag);
+            Debug.Log("what is happening");
+        }
+
+    }
+
+    public void LineContact(string tag)
+    {
+        if (tag == "Poison")
+        {
+            Poison();
+        }
+        else if (tag == "InstantKill")
+        {
+            TakeDamage(3);
+        }
+        else if (tag == "Damage")
+        {
+            TakeDamage(1);
+        }
+    }
+
+    public void Poison()
+    {
+        poisonTime = 5f;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            //anim.SetBool("Dead", true);
+            Destroy(gameObject, 0.5f);
+            if (gameObject.tag == "ArtBlock")
+            {
+                Dead = true;
+            }
         }
     }
 }
@@ -84,7 +152,10 @@ class JumpingState : ArtBlockState
     public JumpingState(ArtBlock artBlock) : base(artBlock)
     {
         startPos = artblock.transform.position;
-        targetPos = artblock.player.transform.position;
+        if (artblock.player != null)
+        {
+            targetPos = artblock.player.transform.position;
+        }
     }
     public override ArtBlockState Update()
     {
@@ -94,7 +165,14 @@ class JumpingState : ArtBlockState
         float x1 = targetPos.x;
         float dist = x1 - x0;
         if (Mathf.Abs(dist) < 10) return new RestingState(artblock);
-        float nextX = Mathf.MoveTowards(artblock.transform.position.x, x1, speed * Time.deltaTime);
+        float nextX;
+        if (ArtBlock.poisonTime > 0) {
+            nextX = Mathf.MoveTowards(artblock.transform.position.x, x1, speed * Time.deltaTime / 1.5f);
+        }
+        else
+        {
+            nextX = Mathf.MoveTowards(artblock.transform.position.x, x1, speed * Time.deltaTime);
+        }
         float baseY = Mathf.Lerp(startPos.y, targetPos.y, Mathf.Min((nextX - x0) / dist, 1));
         float arc = arcHeight * (nextX - x0) * (nextX - x1) / Mathf.Min(-0.25f * dist * dist, 1);
         Vector3 nextPos = new Vector3(nextX, baseY + arc, artblock.transform.position.z);
@@ -121,5 +199,6 @@ class RestingState : ArtBlockState
         timeResting += Time.deltaTime;
         return null;
     }
+
 }
 

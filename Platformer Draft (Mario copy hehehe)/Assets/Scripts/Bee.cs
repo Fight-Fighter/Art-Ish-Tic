@@ -83,12 +83,6 @@ public class Bee : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         collisionFollowCooldown = 0.4f;
-        Player p = col.gameObject.GetComponent<Player>();
-        if (p != null)
-        {
-            SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
-            p.TakeDamage(1);
-        }
 
         if (col.contacts[0].normal.x > 0 && direction.x < 0)
         {

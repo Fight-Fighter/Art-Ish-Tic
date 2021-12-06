@@ -80,7 +80,12 @@ public class MoveTime : MonoBehaviour
             lineRend.endWidth = 0f;
         }
 
-        if (!isGrappling)
+        if (Player.Dead)
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+        if (!isGrappling && !Player.Dead)
         {
 
             float horMove = Input.GetAxisRaw("Horizontal");

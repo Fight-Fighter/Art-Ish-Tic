@@ -67,13 +67,4 @@ public class EaselWeasel : MonoBehaviour
 		//direction = new Vector2(-1 * direction.x, direction.y);
 	}
 
-	void OnCollisionEnter2D(Collision2D col)
-	{
-		Player p = col.gameObject.GetComponent<Player>();
-		if (p != null)
-		{
-			SoundManager.Instance.PlayOneShot(SoundManager.Instance.rockSmash);
-			p.TakeDamage(1);
-		}
-	}
 }

@@ -8,6 +8,10 @@ TagManager:
   - Damage
   - InstantKill
   - Enemy
+  - Boss
+  - ArtBlock
+  - HandBoss
+  - DadBoss
   layers:
   - Default
   - TransparentFX
