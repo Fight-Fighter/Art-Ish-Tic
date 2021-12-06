@@ -12,7 +12,6 @@ public class ArtBlock : MonoBehaviour
     public static bool Dead = false;
     public static float poisonTime;
     private Enemy enemy;
-    public int health = 1;
     // Start is called before the first frame update
     void Awake()
     {
