@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private float poisonTime = 0f;
     private Animator anim;
     public static Player Instance;
-    public static bool Dead = false;
+    public bool dead = false;
     // Update is called once per frame
 
     [SerializeField] private UI_Inventory uiInventory;
@@ -52,14 +52,14 @@ public class Player : MonoBehaviour
         {
             anim.SetBool("Dead", true);
             Destroy(gameObject, 0.5f);
-            Dead = true;
+            dead = true;
         }
         healthBar.SetHearts(Mathf.Max(health, 0));
     }
 
     void OnBecameInvisible()
     {
-        if (Dead)
+        if (dead)
         {
             SceneManager.LoadScene(10);
         }
