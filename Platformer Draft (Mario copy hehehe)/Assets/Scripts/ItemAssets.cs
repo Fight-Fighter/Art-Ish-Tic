@@ -20,6 +20,6 @@ public class ItemAssets : MonoBehaviour
     public Sprite PoisonPaintSprite;
     public Sprite KillPaintSprite;
     public Sprite FreeformPaintSprite;
-
+    public Sprite HeartSprite;
 
 }

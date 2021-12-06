@@ -644,7 +644,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c2077dc4531d11c43a148406b7ea2a54, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1e0fe88e1e7d74f4db29fac54f3213b0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1140,10 +1140,11 @@ MonoBehaviour:
   NormalPaintSprite: {fileID: 21300000, guid: 312323613f87fbf429e3de6c17a44235, type: 3}
   GrapplePaintSprite: {fileID: 21300000, guid: 76a5ad65c9ea1514f80da9f196ffc674, type: 3}
   DamagePaintSprite: {fileID: 21300000, guid: 23e34943cb6836e4bbf8d87614a26669, type: 3}
-  PoisonPaintSprite: {fileID: 21300000, guid: 35d70ac7a3d01e148b83daf6c107d881, type: 3}
-  KillPaintSprite: {fileID: 21300000, guid: 3786a088c344f8548bd9ac7a32999db5, type: 3}
-  FreeformPaintSprite: {fileID: 21300000, guid: 153b38521c38bae4aa11ac3c5acca8a3,
+  PoisonPaintSprite: {fileID: 21300000, guid: de4618141b87b0a439049e77abdadb44, type: 3}
+  KillPaintSprite: {fileID: 21300000, guid: b73bc4660817abd4db48cd54a75add2e, type: 3}
+  FreeformPaintSprite: {fileID: 21300000, guid: 9997217a006441d448151e9d5d1ac895,
     type: 3}
+  HeartSprite: {fileID: 21300000, guid: c2077dc4531d11c43a148406b7ea2a54, type: 3}
 --- !u!1 &5071147954655773580
 GameObject:
   m_ObjectHideFlags: 0

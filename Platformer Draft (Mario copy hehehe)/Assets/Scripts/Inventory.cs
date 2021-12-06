@@ -22,6 +22,11 @@ public class Inventory
     }
     public bool AddItem(Item item)
     {
+        if (item.itemType == Item.ItemType.Heart)
+        {
+            Player.Instance.TakeDamage(-1 * Mathf.RoundToInt(item.amount));
+            return true;
+        }
         if (item.IsStackable())
         {
             foreach (Item inventoryItem in itemList)

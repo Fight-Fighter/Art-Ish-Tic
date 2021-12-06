@@ -13,7 +13,8 @@ public class Item
         DamagePaint,
         PoisonPaint,
         KillPaint,
-        FreeformPaint
+        FreeformPaint,
+        Heart
     }
 
     public ItemType itemType;
@@ -26,7 +27,7 @@ public class Item
 
     public bool IsPaint()
     {
-        return true;
+        return (int) itemType <= 5;
     }
 
     public Sprite GetSprite()
@@ -40,6 +41,7 @@ public class Item
             case ItemType.PoisonPaint: return ItemAssets.Instance.PoisonPaintSprite;
             case ItemType.KillPaint: return ItemAssets.Instance.KillPaintSprite;
             case ItemType.FreeformPaint: return ItemAssets.Instance.FreeformPaintSprite;
+            case ItemType.Heart: return ItemAssets.Instance.HeartSprite;
         }
     }
 
