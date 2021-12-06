@@ -12,6 +12,7 @@ TagManager:
   - ArtBlock
   - HandBoss
   - DadBoss
+  - BossHealthBar
   layers:
   - Default
   - TransparentFX

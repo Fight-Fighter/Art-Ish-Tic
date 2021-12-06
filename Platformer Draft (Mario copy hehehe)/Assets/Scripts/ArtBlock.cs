@@ -44,9 +44,10 @@ public class ArtBlock : MonoBehaviour
             SceneManager.LoadScene(3);
         }
     }
-
+    
     private void OnTriggerEnter2D(Collider2D col)
     {
+        Debug.Log(col);
         Player p = col.gameObject.GetComponent<Player>();
 
         if (p != null)
@@ -55,14 +56,15 @@ public class ArtBlock : MonoBehaviour
             p.TakeDamage(1);
         }
 
-        if (col.gameObject.tag == "Poison" || col.gameObject.tag == "InstantKill" || col.gameObject.tag == "Damage")
+        straightLineDrawing line = col.gameObject.GetComponent<straightLineDrawing>();
+        if (line != null)
         {
-            LineContact(col.gameObject.tag);
-            Debug.Log("what is happening");
+            line.BossTriggerEntered(gameObject);
+            
         }
 
     }
-
+    /*
     public void LineContact(string tag)
     {
         if (tag == "Poison")
@@ -97,6 +99,7 @@ public class ArtBlock : MonoBehaviour
             }
         }
     }
+    */
 }
 
 abstract class ArtBlockState 

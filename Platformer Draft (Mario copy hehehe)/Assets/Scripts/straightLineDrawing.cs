@@ -77,55 +77,85 @@ public class straightLineDrawing : MonoBehaviour
     {
         if (gameObject.tag == "Poison")
         {
-            Poison(col);
+            Poison(col.gameObject);
         }
         else if (gameObject.tag == "InstantKill")
         {
-            InstantKill(col);
+            InstantKill(col.gameObject);
         }
         else if (gameObject.tag == "Damage")
         {
-            Damage(col);
+            Damage(col.gameObject);
         }
 
     }
 
-    void Poison(Collision2D col)
+    public void BossTriggerEntered(GameObject boss)
     {
-        Player p = col.gameObject.GetComponent<Player>();
+        Debug.Log("Trigger Entered");
+        Enemy e = boss.GetComponent<Enemy>();
+        if (e == null || !e.isBoss)
+        {
+            return;
+        }
+        if (gameObject.tag == "Poison")
+        {
+            Poison(boss);
+        }
+        else if (gameObject.tag == "InstantKill")
+        {
+            InstantKill(boss);
+        }
+        else if (gameObject.tag == "Damage")
+        {
+            Damage(boss);
+        }
+
+    }
+
+    void Poison(GameObject entity)
+    {
+        Player p = entity.GetComponent<Player>();
         if (p != null)
         {
             p.Poison();
         }
-        Enemy e = col.gameObject.GetComponent<Enemy>();
+        Enemy e = entity.GetComponent<Enemy>();
         if (e != null)
         {
             e.Poison();
         }
     }
 
-    void InstantKill(Collision2D col)
+    void InstantKill(GameObject entity)
     {
-        Player p = col.gameObject.GetComponent<Player>();
+        Player p = entity.GetComponent<Player>();
         if (p != null)
         {
             p.TakeDamage(p.health);
         }
-        Enemy e = col.gameObject.GetComponent<Enemy>();
+        Enemy e = entity.GetComponent<Enemy>();
         if (e != null)
         {
-            e.TakeDamage(e.health);
+            if (e.isBoss)
+            {
+                e.TakeDamage(5);
+            }
+            else
+            {
+                e.TakeDamage(e.health);
+            }
         }
     }
 
-    void Damage(Collision2D col)
+    void Damage(GameObject entity)
     {
-        Player p = col.gameObject.GetComponent<Player>();
+        Player p = entity.GetComponent<Player>();
         if (p != null)
         {
             p.TakeDamage(1);
         }
-        Enemy e = col.gameObject.GetComponent<Enemy>();
+        Enemy e = entity.GetComponent<Enemy>();
         if (e != null)
         {
             e.TakeDamage(1);

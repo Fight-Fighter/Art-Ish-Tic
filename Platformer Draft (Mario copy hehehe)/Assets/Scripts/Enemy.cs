@@ -8,10 +8,18 @@ public class Enemy : MonoBehaviour
     private float poisonTime = 0f;
     public int health = 1;
     public float speed = 2;
+    public bool isBoss = false;
+    private HealthBar bossHealthBar;
     private Animator anim;
     void Awake()
     {
         anim = GetComponent<Animator>();
+        if (isBoss)
+        {
+            GameObject[] taggedItems = GameObject.FindGameObjectsWithTag("BossHealthBar");
+            if (taggedItems != null && taggedItems.Length > 0) { bossHealthBar = taggedItems[0].GetComponent<HealthBar>(); }
+            bossHealthBar.SetMaxHealth(health);
+        }
     }
 
     // Update is called once per frame
@@ -32,10 +40,15 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        if (isBoss)
+        {
+            bossHealthBar.SetHealth(health);
+        }
         if (health <= 0)
         {
             //anim.SetBool("Dead", true);
             Destroy(gameObject, 0.5f);
+            
             if (gameObject.tag == "ArtBlock")
             {
                 ArtBlock.Dead = true;
