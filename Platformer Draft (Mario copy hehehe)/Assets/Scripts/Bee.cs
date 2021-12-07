@@ -12,7 +12,6 @@ public class Bee : MonoBehaviour
     private Rigidbody2D rb;
     private Enemy enemy;
     private GameObject player = null;
-    private Vector2 direction = Vector2.left;
     private bool dead = false;
     private float lastFlip = 0f;
     private float lastPatrolFlip = 0f;
@@ -41,31 +40,30 @@ public class Bee : MonoBehaviour
 
         if (player != null && player.transform != null && collisionFollowCooldown < 0f && (player.transform.position - transform.position).magnitude < aggroRange)
         {
-            Vector2 newVelocity = (player.transform.position - transform.position).normalized * actualSpeed;
-            Vector2 newDirection = (new Vector2(rb.velocity.x, 0)).normalized;
-            if (newDirection.x == direction.x || Flip(false))
-            {
-                rb.velocity = newVelocity;
-                direction = newDirection;
-            }
+            Vector2 newVelocity = enemy.GetOffsetVelocity((player.transform.position - transform.position).normalized);
+            
+            rb.velocity = newVelocity;
             lastPatrolFlip = 0;
             patrolTime = 0;
         } else
         {
             patrolTime += Time.deltaTime;
             lastPatrolFlip += Time.deltaTime;
-            direction.y = Mathf.Cos(patrolTime * 5) / actualSpeed * 1.5f;
             if (lastPatrolFlip > patrolRange) {
                 Flip(false);
             }
-            rb.velocity = direction * actualSpeed;
+            rb.velocity = enemy.GetOffsetVelocity(new Vector2(-1 * transform.localScale.x * actualSpeed, Mathf.Cos(patrolTime * 5) * 1.5f).normalized);
 
+        }
+
+        if (rb.velocity.magnitude < 0.01)
+        {
+            rb.velocity = Vector2.zero;
         }
 
         if (rb.velocity.x * transform.localScale.x > 0)
         {
             Flip(true);
-            direction = new Vector2(Mathf.Sign(rb.velocity.x), rb.velocity.y);
         }
     }
 
@@ -76,7 +74,6 @@ public class Bee : MonoBehaviour
         lastPatrolFlip = 0f;
         transform.localScale = new Vector2(-1 * transform.localScale.x,
             transform.localScale.y);
-        direction = new Vector2(direction.x * -1, direction.y);
         return true;
     }
 
@@ -84,11 +81,11 @@ public class Bee : MonoBehaviour
     {
         collisionFollowCooldown = 0.4f;
 
-        if (col.contacts[0].normal.x > 0 && direction.x < 0)
+        if (col.contacts[0].normal.x > 0 && transform.localScale.x < 0)
         {
             Flip(true);
         }
-        else if (col.contacts[0].normal.x < 0 && direction.x > 0)
+        else if (col.contacts[0].normal.x < 0 && transform.localScale.x > 0)
         {
             Flip(true);
         }
