@@ -41,6 +41,7 @@ public class Bee : MonoBehaviour
         if (player != null && player.transform != null && collisionFollowCooldown < 0f && (player.transform.position - transform.position).magnitude < aggroRange)
         {
             Vector2 newVelocity = enemy.GetOffsetVelocity((player.transform.position - transform.position).normalized);
+            
             rb.velocity = newVelocity;
             lastPatrolFlip = 0;
             patrolTime = 0;
@@ -53,6 +54,11 @@ public class Bee : MonoBehaviour
             }
             rb.velocity = enemy.GetOffsetVelocity(new Vector2(-1 * transform.localScale.x * actualSpeed, Mathf.Cos(patrolTime * 5) * 1.5f).normalized);
 
+        }
+
+        if (rb.velocity.magnitude < 0.01)
+        {
+            rb.velocity = Vector2.zero;
         }
 
         if (rb.velocity.x * transform.localScale.x > 0)
