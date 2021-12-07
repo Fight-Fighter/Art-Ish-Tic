@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private Animator anim;
     public static Player Instance;
     public bool dead = false;
+    public bool godMode = false;
     // Update is called once per frame
 
     [SerializeField] private UI_Inventory uiInventory;
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        if (godMode) { return; }
         health -= damage;
         if (health <= 0)
         {
@@ -95,11 +97,13 @@ public class Player : MonoBehaviour
 
     public void UsePaint(float amt)
     {
+        if (godMode) { return; }
         inventory.RemoveItem(new Item { itemType = (Item.ItemType) UI_Inventory.selection, amount = amt});
     }
 
     public void UsePaint(Item.ItemType t, float amt)
     {
+        if (godMode) { return; }
         inventory.RemoveItem(new Item { itemType = t, amount = amt });
     }
 }
