@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private Animator anim;
     public static Player Instance;
     public bool dead = false;
+    public static bool godMode = false;
     // Update is called once per frame
 
     [SerializeField] private UI_Inventory uiInventory;
@@ -95,6 +96,7 @@ public class Player : MonoBehaviour
 
     public void UsePaint(float amt)
     {
+        if (godMode) { return; }
         inventory.RemoveItem(new Item { itemType = (Item.ItemType) UI_Inventory.selection, amount = amt});
     }
 
