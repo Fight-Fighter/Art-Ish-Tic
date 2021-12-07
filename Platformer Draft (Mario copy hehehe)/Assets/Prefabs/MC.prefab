@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4302434346185612584}
   - component: {fileID: 4302434346185612585}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: paintgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 512
-  maxGrappleLength: 0
+  maxGrappleLength: 10
   facingRight: 1
   jumpSpeed: 5
   wallJumpY: 10
@@ -367,6 +367,7 @@ MonoBehaviour:
   health: 3
   speed: 5
   healthBar: {fileID: 0}
+  dead: 0
   uiInventory: {fileID: 0}
 --- !u!61 &4302434347513040500
 BoxCollider2D:
@@ -403,7 +404,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4302434347752802952}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
