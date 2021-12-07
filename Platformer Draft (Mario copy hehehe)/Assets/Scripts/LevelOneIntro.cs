@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelOneIntro : MonoBehaviour
 {
-    public float timeLeft = 0;
+    public float timeLeft = 3;
     // Start is called before the first frame update
     void Start()
     {

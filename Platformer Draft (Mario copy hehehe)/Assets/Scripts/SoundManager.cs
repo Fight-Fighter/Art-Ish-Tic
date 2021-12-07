@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
 	public AudioClip jump;
 	public AudioClip getCoin;
 	public AudioClip rockSmash;
+	public AudioClip Credits;
 
 	// Refers to the audio source added to the SoundManager
 	// to play sound effects

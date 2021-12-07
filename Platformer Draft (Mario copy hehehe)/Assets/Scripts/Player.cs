@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
     {
         if (dead)
         {
-            SceneManager.LoadScene(10);
+            SceneManager.LoadScene(11);
         }
     }
 
